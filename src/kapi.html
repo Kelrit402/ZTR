@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            color: #fff;
+            background-color: #111111;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            height: 100%;
+            width: auto;
+            aspect-ratio: 1 / 1;
+            max-width: -webkit-fill-available;
+            background-color: #161616;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .rectangle {
+            width: 100%;
+            height: 100%;
+        }
+
+        .input-container{
+            font-family: "Noto Sans KR", sans-serif;
+            position:relative;
+            margin-bottom:25px;
+            width: 30%;
+        }
+        .input-container label{
+            position:absolute;
+            top:0px;
+            left:0px;
+            font-size:16px;
+            color:#fff;	
+            transition: all 0.1s ease-in-out;
+        }
+        .input-container input{ 
+        border:0;
+        border-bottom:1px solid #555;  
+        background:transparent;
+        width:100%;
+        padding:8px 0 5px 0;
+        font-size:16px;
+        color:#fff;
+        }
+        .input-container input:focus{ 
+        border:none;	
+        outline:none;
+        border-bottom:1px solid #e74c3c;	
+        }
+        .btn{
+            color:#fff;
+            background-color:#e74c3c;
+            outline: none;
+            border: 0;
+            color: #fff;
+            padding:10px 20px;
+            text-transform:uppercase;
+            margin-top:50px;
+            border-radius:2px;
+            cursor:pointer;
+            position:relative;
+        }
+        .input-container input:focus ~ label,
+        .input-container input:valid ~ label{
+            top:-12px;
+            font-size:12px;
+            
+        }
+
+        .rainbow {
+            background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, purple);
+        }
+
+        .pimage {
+            width: 10%;
+            min-width: 10%;
+            padding-bottom: 10%;
+            overflow: hidden;
+            position: relative;
+            border-radius: 33%;
+            margin: 1%;
+        }
+
+        .pimage img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .profileholder {
+            display: inline-block;
+            margin: 2%;
+            margin-top: 1%;
+        }
+        .masterholder {
+            background-color: #202020;
+        }
+        .contentholder {
+            display: flex;
+            flex-direction: row;
+            align-content: flex-start;
+            align-items: flex-start;
+            margin: 1%;
+        }
+        .reactholder {
+            display: flex;
+            width: 100%;
+            flex-direction: row-reverse;
+        }
+        .media_holder {
+            position: relative;
+            max-width: 93%; 
+        }
+        .media_holder img {
+            width: auto;
+            max-height: 900px;
+            display: block;
+            margin: auto;
+            max-width: inherit;
+        }
+        .hr {
+            margin: 10px 0;
+            border: 0;
+            border-top: 1px solid #bbb;
+        }
+        .xtitle {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 900;
+            font-style: normal;
+        }
+        .groupBox {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .menubtn {
+            margin: 2px;
+            height: 30px;
+        }
+        .pname {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 25px;
+        }
+        .pid {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 15px;
+            opacity: 50%;
+            margin: 1px;
+        }
+        .pcontent {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 20px;
+            margin: 1px;
+            margin-top: 10px;
+            width: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .ovrwrap {
+            margin-top: 15px;
+        }
+    </style>
+    <title>ZTR beta</title>
+</head>
+<body>
+    <div class="rainbow" style="height: 0.2%;width: 100%;position: fixed;top: 0px;z-index: 2;"></div>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/Kelrit402/ZTR/1538bdc546f2c88d698ba54b47370306750c1062/ztr.png" style="width: 30%; margin-top: 10%; margin-bottom: 10%;">
+        <div class="input-container">
+            <input type="text" id="uid" required=""/>
+            <label>email</label>
+        </div>
+        <div class="input-container">
+            <input type="password" id="upw" required=""/>
+            <label>pw</label>
+        </div>
+        <button type="button" class="btn" onclick="login()">로그인</button>
+    </div>
+
+    <script>
+        var mserver = "http://ec2-43-203-221-155.ap-northeast-2.compute.amazonaws.com:5000"; 
+        var g_cookie = ""
+        function login(){
+            sendreq("","login",JSON.stringify([document.getElementById("uid").value,document.getElementById("upw").value]),"", function (error, response) {
+                    if (!error) {
+                        g_cookie = response
+                        console.log("login successss")
+                        gettimeline()
+                    }else{
+                        alert(error)
+                    }
+                });
+        }
+
+        function gentime() {
+            var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+            return timeStampInMs.toString().replace('.', '')
+        }
+
+        function showprofile(contents,uid) {
+            document.getElementById('overlay').style.display = 'flex';
+            var holder = document.getElementById('ovrwrapper')
+            var pname = document.createElement('a')
+            pname.setAttribute('class',"pname")
+            pname.innerText = contents
+            holder.appendChild(pname)
+            holder.appendChild(document.createElement('hr'))
+            var profilelink = document.createElement('button')
+            profilelink.setAttribute('class','menubtn')
+            profilelink.setAttribute('onclick',"window.open('https://story.kakao.com/" +uid+ "')")
+            profilelink.innerText = 'visit profile'
+            holder.appendChild(profilelink)
+            var profilelink = document.createElement('button')
+            profilelink.setAttribute('class','menubtn')
+            profilelink.setAttribute('onclick',"editpanel('" +uid+ "')")
+            profilelink.innerText = 'status edit'
+            holder.appendChild(profilelink)
+        }
+
+        function refreshlabel(){
+            ckbox = document.getElementById('addval')
+            valuestr = document.getElementById('editval')
+            prevlabel = document.getElementById('prevlabel')
+            if (ckbox.checked) {
+                sendingpkt.padd = true
+            }else{
+                sendingpkt.padd = false
+            }
+            sendingpkt.pval = valuestr.value 
+            prevlabel.textContent = sendingpkt.puid + " " + sendingpkt.pkey + " " + sendingpkt.pval + " " + sendingpkt.padd
+        }
+
+        function editpanel(uid){
+            sendingpkt.puid = uid
+
+            var holder = document.getElementById('ovrwrapper')
+            holder.innerHTML = ''
+            var namewrap = document.createElement('label');
+            namewrap.setAttribute('class','pname')
+            namewrap.textContent = uid
+            holder.appendChild(namewrap)
+            holder.appendChild(document.createElement('br'))
+
+            var valuestr = document.createElement('input');
+            valuestr.type = 'text'
+            valuestr.placeholder = 'value to edit'
+            valuestr.id = 'editval'
+            holder.appendChild(valuestr)
+
+            var ckbox = document.createElement('input');
+            ckbox.type = 'checkbox';
+            ckbox.id = 'addval';
+            holder.appendChild(ckbox)
+
+            var strs = document.createElement('label');
+            strs.htmlFor = 'addval';
+            strs.textContent = 'add';
+            holder.appendChild(strs)
+
+            holder.appendChild(document.createElement('hr'))
+
+            var btn1 = document.createElement('button')
+            btn1.setAttribute('class','menubtn')
+            btn1.setAttribute('onclick',"sendingpkt.pkey='point';refreshlabel()")
+            btn1.innerText = 'point'
+
+            var btn2 = document.createElement('button')
+            btn2.setAttribute('class','menubtn')
+            btn2.setAttribute('onclick',"sendingpkt.pkey='warn';refreshlabel()")
+            btn2.innerText = 'warning'
+
+            var btn3 = document.createElement('button')
+            btn3.setAttribute('class','menubtn')
+            btn3.setAttribute('onclick',"sendingpkt.pkey='vip';refreshlabel()")
+            btn3.innerText = 'vip'
+
+            var btn4 = document.createElement('button')
+            btn4.setAttribute('class','menubtn')
+            btn4.setAttribute('onclick',"sendingpkt.pkey='bethac';refreshlabel()")
+            btn4.innerText = 'bethac'
+
+            var btn5 = document.createElement('button')
+            btn5.setAttribute('class','menubtn')
+            btn5.setAttribute('onclick',"sendingpkt.pkey='rekhac';refreshlabel()")
+            btn5.innerText = 'rekhac'
+
+            var prevlabel = document.createElement('label');
+            prevlabel.setAttribute('class',"pcontent")
+            prevlabel.setAttribute('id',"prevlabel")
+            prevlabel.textContent = ""
+
+            var btn6 = document.createElement('button')
+            btn6.setAttribute('class','menubtn')
+            btn6.setAttribute('onclick',"useredit()")
+            btn6.innerText = 'send edit data'
+
+            var btn7 = document.createElement('button')
+            btn7.setAttribute('class','menubtn')
+            btn7.setAttribute('onclick',"remfriend('"+uid+"')")
+            btn7.innerText = 'remove friend'
+
+            var btn8 = document.createElement('button')
+            btn8.setAttribute('class','menubtn')
+            btn8.setAttribute('onclick',"remdata('"+uid+"')")
+            btn8.innerText = 'remove data'
+            
+            holder.appendChild(btn1)
+            holder.appendChild(btn2)
+            holder.appendChild(document.createElement('br'))
+            holder.appendChild(btn3)
+            holder.appendChild(btn4)
+            holder.appendChild(btn5)
+            holder.appendChild(document.createElement('br'))
+            holder.appendChild(prevlabel)
+            holder.appendChild(document.createElement('br'))
+            holder.appendChild(btn6)
+            holder.appendChild(document.createElement('hr'))
+            holder.appendChild(btn7)
+            holder.appendChild(btn8)
+        }
+
+        function showtimeline(feeddata) {
+            document.querySelector("body > div.container").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
+            var mainctn = document.querySelector("body > div > div.contents")
+            mainctn.innerHTML = ''
+            for (var i = 0; i < feeddata.length; i++){
+                if (feeddata[i].verb !== "post" && feeddata[i].verb !== "share") {
+                    continue;
+                }
+                var master = document.createElement('div')
+                master.setAttribute('class',"masterholder")
+                master.setAttribute('sid',"sid")
+                mainctn.appendChild(master)
+
+                var holder = document.createElement('div')
+                holder.setAttribute('id',"fd"+i)
+                holder.setAttribute('class',"contentholder")
+                master.appendChild(holder)
+                holder.innerHTML = '<div class="pimage"></div>'
+
+                var pimg = document.createElement('img')
+                pimg.setAttribute('src',feeddata[i].actor.profile_image_url)
+                holder.childNodes[0].appendChild(pimg)
+
+                var pholder = document.createElement('div')
+                pholder.setAttribute('class',"profileholder")
+                holder.appendChild(pholder)
+                pholder.style.marginLeft = "10px"
+                pholder.style.display = "inline-block"
+
+                var pname = document.createElement('a')
+                pname.setAttribute('class',"pname")
+                pname.setAttribute('onclick',"getprofile('"+feeddata[i].actor.id+"')")
+                pname.textContent = feeddata[i].actor.display_name
+                pholder.appendChild(pname)
+                pholder.appendChild(document.createElement('br'))
+
+                var pid = document.createElement('pre')
+                pid.setAttribute('class',"pid")
+                pid.textContent = feeddata[i].updated_at
+                pholder.appendChild(pid)
+
+                var pcnt = document.createElement('pre')
+                pcnt.setAttribute('class',"pcontent")
+                pcnt.textContent = feeddata[i].content
+                pholder.appendChild(pcnt)
+
+                if (feeddata[i].media != undefined) {
+                    if (feeddata[i].media[0].content_type == "image/jpeg") {
+                        var mdhldr = document.createElement('div')
+                        mdhldr.setAttribute('class','media_holder')
+                        pholder.appendChild(mdhldr)
+                        mdhldr.innerHTML = '<img src="'+feeddata[i].media[0].origin_url+'">'
+                    }
+                }
+
+                var rholder = document.createElement('div')
+                rholder.setAttribute('id',"rd"+i)
+                rholder.setAttribute('class',"reactholder")
+                master.appendChild(rholder)
+                rholder.innerHTML = `<span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>
+                    <span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>
+                    <span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>`
+                rholder.childNodes[4].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <span class="pcontent" style="vertical-align: middle;">`+feeddata[i].like_count+'</span>'
+                rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" style="width: 30px;vertical-align: middle;">
+    <path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <span class="pcontent" style="vertical-align: middle;">`+feeddata[i].comment_count+'</span>'
+                rholder.childNodes[0].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" style="width: 30px;vertical-align: middle;">
+                    <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <span class="pcontent" style="vertical-align: middle;">`+feeddata[i].share_count+'</span>'
+
+            }
+        }
+
+        function shownotific(notdata) {
+            document.querySelector("#contentsbox").innerHTML = ''
+            for (var i = 0; i < notdata.length; i++){
+                var master = document.createElement('div')
+                master.setAttribute('class',"masterholder")
+                document.querySelector("#contentsbox").appendChild(master)
+
+                var holder = document.createElement('div')
+                holder.setAttribute('id',"fd"+i)
+                holder.setAttribute('class',"contentholder")
+                master.appendChild(holder)
+
+                var pimg = document.createElement('img')
+                pimg.setAttribute('class',"pimage")
+                pimg.setAttribute('src',notdata[i].actor.profile_image_url)
+                holder.appendChild(pimg)
+
+                var pholder = document.createElement('div')
+                pholder.setAttribute('class',"profileholder")
+                holder.appendChild(pholder)
+                pholder.style.marginLeft = "10px"
+                pholder.style.display = "inline-block"
+
+                var pname = document.createElement('a')
+                pname.setAttribute('class',"pname")
+                pname.textContent = notdata[i].actor.display_name
+                pname.setAttribute('onclick',"getprofile('"+notdata[i].actor.id+"')")
+                pholder.appendChild(pname)
+                pholder.appendChild(document.createElement('br'))
+
+                var pid = document.createElement('pre')
+                pid.setAttribute('class',"pid")
+                pid.textContent = notdata[i].actor.id+"\n"+notdata[i].message
+                pholder.appendChild(pid)
+
+                var pcnt = document.createElement('pre')
+                pcnt.setAttribute('class',"pcontent")
+                pcnt.textContent = notdata[i].thumbnail_text+"\n"+notdata[i].content
+                pholder.appendChild(pcnt)
+
+                master.appendChild(document.createElement('hr'))
+            }
+        }
+
+        function showfriends(frddata) {
+            document.querySelector("#contentsbox").innerHTML = ''
+            for (var i = 0; i < frddata.length; i++){
+                var master = document.createElement('div')
+                master.setAttribute('class',"masterholder")
+                document.querySelector("#contentsbox").appendChild(master)
+
+                var holder = document.createElement('div')
+                holder.setAttribute('id',"fd"+i)
+                holder.setAttribute('class',"contentholder")
+                master.appendChild(holder)
+
+                var pimg = document.createElement('img')
+                pimg.setAttribute('class',"pimage")
+                pimg.setAttribute('src',frddata[i].profile_image_url)
+                holder.appendChild(pimg)
+
+                var pholder = document.createElement('div')
+                pholder.setAttribute('class',"profileholder")
+                holder.appendChild(pholder)
+                pholder.style.marginLeft = "10px"
+                pholder.style.display = "inline-block"
+
+                var pname = document.createElement('a')
+                pname.setAttribute('class',"pname")
+                pname.textContent = frddata[i].display_name
+                pname.setAttribute('onclick',"getprofile('"+frddata[i].id+"')")
+                pholder.appendChild(pname)
+                pholder.appendChild(document.createElement('br'))
+
+                var pid = document.createElement('pre')
+                pid.setAttribute('class',"pid")
+                pid.textContent = frddata[i].id
+                pholder.appendChild(pid)
+
+                var pcnt = document.createElement('pre')
+                pcnt.setAttribute('class',"pcontent")
+                try {
+                    pcnt.textContent = frddata[i].status_objects[0].message
+                } catch (error) {
+                }
+                pholder.appendChild(pcnt)
+
+                master.appendChild(document.createElement('hr'))
+            }
+        }
+
+        function showds(dsdata) {
+            document.querySelector("#contentsbox").innerHTML = ''
+            for (var i = 0; i < dsdata.length; i++){
+                var master = document.createElement('div')
+                master.setAttribute('class',"masterholder")
+                document.querySelector("#contentsbox").appendChild(master)
+
+                var holder = document.createElement('div')
+                holder.setAttribute('id',"fd"+i)
+                holder.setAttribute('class',"contentholder")
+                master.appendChild(holder)
+
+                var pname = document.createElement('label')
+                pname.setAttribute('class',"pname")
+                pname.setAttribute('onclick',"getprofile('"+dsdata[i][1]+"')")
+                pname.textContent = "["+i+"] "+dsdata[i][1]
+                holder.appendChild(pname)
+                holder.appendChild(document.createElement('br'))
+
+                var pcnt = document.createElement('pre')
+                pcnt.setAttribute('class',"pcontent")
+                pcnt.textContent = dsdata[i][0]
+                holder.appendChild(pcnt)
+
+                master.appendChild(document.createElement('hr'))
+            }
+        }
+
+        function showstatus(stats) {
+            document.querySelector("#contentsbox").innerHTML = ''
+            var varr = Object.keys(stats)
+            for (var i = 0; i < varr.length; i++){
+                var holder = document.createElement('div')
+                holder.setAttribute('class',"contentholder")
+                document.querySelector("#contentsbox").appendChild(holder)
+                var nkey = document.createElement('a')
+                nkey.setAttribute("class","pname")
+                nkey.textContent = varr[i] + ' : '
+
+                var nval = document.createElement('a')
+                nval.setAttribute("class","pname")
+                nval.textContent = stats[varr[i]]
+
+                holder.appendChild(nkey)
+                holder.appendChild(nval)
+            }
+        }
+
+        function sendreq(xurl="",xcmd="",xdata="",xcookie="",callback){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", mserver, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Xurl", xurl);
+            xhr.setRequestHeader("Xcmd", xcmd);
+            xhr.setRequestHeader("Xdata", xdata);
+            xhr.setRequestHeader("Xcookie", xcookie);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    callback(null, xhr.responseText);
+                } else {
+                    if (xhr.status != 200){
+                        callback(new Error('error : ' + xhr.status), null);
+                    }
+                }
+            };
+        }
+
+        function prestart() {
+            if (confirm("restart bot?")) {
+                sendreq('p.restart', function (error, response) {
+                    if (!error) {
+                        alert(response);
+                    }else{
+                        alert(error)
+                    }
+                });
+            }
+        }
+
+        function filterfrd() {
+            if (confirm("filter friends?")) {
+                sendreq('remfriends', function (error, response) {
+                    if (!error) {
+
+                    }else{
+                        alert(error)
+                    }
+                });
+            }
+        }
+
+        function useredit() {
+            if (confirm("edit user?")) {
+                vstr = JSON.stringify(sendingpkt)
+                sendreq('set#'+vstr, function (error, response) {
+                    if (!error) {
+                        alert(response);
+                    }else{
+                        alert(error)
+                    }
+                });
+            }
+        }
+
+        function remfriend(uid) {
+            if (confirm("remove friend?")) {
+                sendreq('unfrd#'+uid, function (error, response) {
+                    if (!error) {
+                        alert(response);
+                    }else{
+                        alert(error)
+                    }
+                });
+            }
+        }
+
+        function remdata(uid) {
+            if (confirm("remove user data?")) {
+                sendreq('remdata#'+uid, function (error, response) {
+                    if (!error) {
+                        alert(response);
+                    }else{
+                        alert(error)
+                    }
+                });
+            }
+        }
+
+        function getprofile(uid) {
+            sendreq('usr#'+uid, function (error, response) {
+                if (!error) {
+                    showprofile(response,uid)
+                }
+            });
+            
+        }
+
+        function getnotific() {
+            sendreq('notific', function (error, responseText) {
+                if (!error) {
+                    recdata = JSON.parse(responseText);
+                    shownotific(recdata)
+                }
+            });
+        }
+
+        function getfriends() {
+            sendreq('friends', function (error, responseText) {
+                if (!error) {
+                    recdata = JSON.parse(responseText);
+                    showfriends(recdata)
+                }
+            });
+        }
+
+        function gettimeline() {
+            sendreq('https://story.kakao.com/a/feeds?ag=false&_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        console.log(JSON.parse(recdata[1]).feeds)
+                        showtimeline(JSON.parse(recdata[1]).feeds)
+                    }
+                }
+            });
+        }
+
+        function getstatus() {
+            sendreq('status', function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    showstatus(recdata)
+                }
+            });
+        }
+
+        function getds() {
+            sendreq('dsmsgs', function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    showds(recdata)
+                }
+            });
+        }
+
+        function getranks() {
+            sendreq('ranks', function (error, response) {
+                if (!error) {
+                    document.querySelector("#contentsbox").innerHTML = ''
+                    var pcnt = document.createElement('pre')
+                    pcnt.setAttribute('class',"pcontent")
+                    pcnt.textContent = response
+                    document.querySelector("#contentsbox").appendChild(pcnt)
+                }
+            });
+        }
+    </script>
+</body>
+</html>
