@@ -76,7 +76,8 @@ def kput(kurl,kdata,kcookie):
 def gencookie(uid,upw):
     vcook = kapi_gencookie.gencookie(uid,upw)
     if vcook == None:
-        return 'n'
+        return "n"
+    return vcook
 
 @app.route('/', methods = ['GET'])
 def data_GET():
@@ -88,7 +89,9 @@ def data_GET():
     vcookie = request.headers.get('Xcookie')
     if cmds == "login":
         uid, upw = json.loads(datas)
-        return gencookie(uid,upw)
+        print(uid, upw)
+        xrtn = gencookie(uid,upw)
+        return xrtn
     if cmds == "get":
         return kget(url,vcookie)
     if cmds == "del":
