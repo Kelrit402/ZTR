@@ -88,22 +88,23 @@
         }
 
         .pimage {
-            width: 10%;
-            min-width: 10%;
+            width: 12%;
+            min-width: 65px;
             padding-bottom: 10%;
             overflow: hidden;
             position: relative;
-            border-radius: 33%;
+            border-radius: 20px;
             margin: 1%;
             margin-top: 2%;
         }
 
         .pimage img {
             width: 100%;
-            height: auto;
+            height: 100%;
             position: absolute;
             top: 50%;
             left: 50%;
+            object-fit: cover;
             transform: translate(-50%, -50%);
         }
         .profileholder {
@@ -113,25 +114,32 @@
         }
         .masterholder {
             background-color: #202020;
+            border-radius: 30px;
+            margin: 3%;
         }
         .contentholder {
-            display: flex;
-            flex-direction: row;
             align-content: flex-start;
             align-items: flex-start;
-            margin: 1%;
         }
         .reactholder {
             display: flex;
             width: 100%;
-            flex-direction: row-reverse;
+            flex-direction: row;
+            margin-left: 2%;
         }
         .media_holder {
             position: relative;
-            max-width: 93%; 
-            margin-top: 2%;
+            max-width: 100%; 
+            margin: 2%;
         }
         .media_holder img {
+            width: auto;
+            max-height: 900px;
+            display: block;
+            margin: auto;
+            max-width: inherit;
+        }
+        .media_holder video {
             width: auto;
             max-height: 900px;
             display: block;
@@ -144,6 +152,27 @@
             vertical-align: middle;
             top: 45%;
             font-size: 30px;
+            cursor: pointer;
+        }
+        .urlstr {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            text-align: center;
+            font-size: 20px;
+            z-index: 1;
+        }
+
+        .hashtag {
+            color: #0f0;
         }
         .hr {
             margin: 10px 0;
@@ -187,9 +216,8 @@
             font-weight: 500;
             font-style: normal;
             font-size: 20px;
-            margin: 1px;
+            margin: 2%;
             margin-top: 10px;
-            width: 100%;
             white-space: pre-wrap;
             word-wrap: break-word;
         }
@@ -231,7 +259,7 @@
     <script>
         var mserver = "http://ec2-43-203-221-155.ap-northeast-2.compute.amazonaws.com:5000"; 
         var g_cookie = ""
-        var n_waitingtimeline = false
+        var g_stopautoload = false
         function login(){
             sendreq("","login",JSON.stringify([document.getElementById("uid").value,document.getElementById("upw").value]),"", function (error, response) {
                     if (!error) {
@@ -271,6 +299,22 @@
                 str = str.slice(0, maxLength - 3) + '...';
             }
             return str;
+        }
+
+        function ctntohtml(arr){
+            rtml = ''
+            for (var i = 0; i < arr.length; i++){
+                if (arr[i].type == 'text'){
+                    rtml = rtml + arr[i].text
+                }
+                if (arr[i].type == 'hashtag'){
+                    rtml = rtml + '<span class="hashtag">' + arr[i].text + '</span>'
+                }
+                if (arr[i].type == 'profile'){
+                    rtml = rtml + '<mark>' + arr[i].text + '</mark>'
+                }
+            }
+            return rtml
         }
 
         function showprofile(contents,uid) {
@@ -399,64 +443,88 @@
             var master = document.createElement('div')
             master.setAttribute('class',"masterholder")
             master.setAttribute('sid',fdata.sid)
+            master.setAttribute('onclick', 'getcontents("'+fdata.sid+'")')
             //mainctn.appendChild(master)
 
             var holder = document.createElement('div')
             holder.setAttribute('id',"fd"+idnum)
             holder.setAttribute('class',"contentholder")
             master.appendChild(holder)
-            holder.innerHTML = '<div class="pimage"></div>'
-
-            var pimg = document.createElement('img')
-            pimg.setAttribute('src',fdata.actor.profile_image_url)
-            holder.childNodes[0].appendChild(pimg)
 
             var pholder = document.createElement('div')
             pholder.setAttribute('class',"profileholder")
             holder.appendChild(pholder)
             pholder.style.marginLeft = "10px"
-            pholder.style.display = "inline-block"
+            pholder.style.display = "flex"
+            pholder.innerHTML = '<div class="pimage"></div><div style="width: 100%;margin: 2%;"></div>'
+
+            var pimg = document.createElement('img')
+            pimg.setAttribute('src',fdata.actor.profile_image_url)
+            pholder.childNodes[0].appendChild(pimg)
 
             var pname = document.createElement('a')
             pname.setAttribute('class',"pname")
             pname.setAttribute('onclick',"getprofile('"+fdata.actor.id+"')")
             pname.textContent = fdata.actor.display_name
-            pholder.appendChild(pname)
-            pholder.appendChild(document.createElement('br'))
+            pholder.childNodes[1].appendChild(pname)
 
             var pid = document.createElement('pre')
             pid.setAttribute('class',"pid")
             pid.textContent = timetostr(fdata.updated_at)
-            pholder.appendChild(pid)
+            pholder.childNodes[1].appendChild(pid)
 
             var pcnt = document.createElement('pre')
             pcnt.setAttribute('class',"pcontent")
-            pcnt.textContent = truncateString(fdata.content)
-            pholder.appendChild(pcnt)
+            pcnt.innerHTML = truncateString(ctntohtml(fdata.content_decorators))
+            holder.appendChild(pcnt)
 
-            if (fdata.media != undefined) {
-                if (fdata.media[0].content_type == "image/jpeg") {
-                    var mdhldr = document.createElement('div')
-                    mdhldr.setAttribute('class','media_holder')
-                    mdhldr.setAttribute('id','md'+idnum)
-                    mdhldr.setAttribute('pg',0)
-                    pholder.appendChild(mdhldr)
-                    if (fdata.media.length != 1) {
-                        mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1)">⩽</p>`
-                    }
-                    for (var u = 0; u < fdata.media.length; u++){
-                        if (u==0){
-                            mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;">'
-                        }else{
-                            mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: none;">'
-                        }
+            if (fdata.media_type == "image") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md'+idnum)
+                mdhldr.setAttribute('pg',0)
+                holder.appendChild(mdhldr)
+                if (fdata.media.length != 1) {
+                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1)">⩽</p>`
+                }
+                for (var u = 0; u < fdata.media.length; u++){
+                    if (u==0){
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;">'
+                    }else{
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: none;">'
                     }
                 }
             }
-
+            if (fdata.media_type == "video") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md'+idnum)
+                mdhldr.setAttribute('pg',0)
+                holder.appendChild(mdhldr)
+                if (fdata.media.length != 1) {
+                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1)">⩽</p>`
+                }
+                for (var u = 0; u < fdata.media.length; u++){
+                    if (u==0){
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: block;" controls></video>'
+                    }else{
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: none;" controls></video>'
+                    }
+                }
+            }
+            if (fdata.media_type == "scrap") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md'+idnum)
+                mdhldr.setAttribute('pg',0)
+                mdhldr.setAttribute('onclick',"window.open('" +fdata.scrap.requested_url+ "')")
+                holder.appendChild(mdhldr)
+                mdhldr.innerHTML = '<pre class="urlstr">'+fdata.scrap.title+'\n'+fdata.scrap.site_name+'</pre>'
+                mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+            }
             if (fdata.verb == 'share'){
-                var vshare = largeview(fdata.object)
-                pholder.appendChild(vshare)
+                var vshare = largeview(fdata.object,'_s'+idnum)
+                holder.appendChild(vshare)
                 vshare.style = 'border: 2px dashed #454545; border-radius: 20px;'
             }
 
@@ -464,18 +532,18 @@
             rholder.setAttribute('id',"rd"+idnum)
             rholder.setAttribute('class',"reactholder")
             master.appendChild(rholder)
-            rholder.innerHTML = `<span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>
-                <span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>
-                <span class="dd" style="height: 50px;width: 10%;margin: 2px;display: block;text-align: center; line-height: 50px;"></span>`
-            rholder.childNodes[4].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="vertical-align: middle;">`+fdata.like_count+'</span>'
-            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" style="width: 30px;vertical-align: middle;">
-<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="vertical-align: middle;">`+fdata.comment_count+'</span>'
-            rholder.childNodes[0].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" style="width: 30px;vertical-align: middle;">
-                <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="vertical-align: middle;">`+fdata.share_count+'</span>'
+            rholder.innerHTML = `<span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>
+                <span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>
+                <span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>`
+            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.like_count+'</span>'
+            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
+<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.comment_count+'</span>'
+            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
+                <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.share_count+'</span>'
             return master
         }
 
@@ -493,7 +561,165 @@
                 }
                 mainctn.appendChild(largeview(feeddata[i],i))
             }
-            n_waitingtimeline = false
+            g_stopautoload = false
+        }
+
+        function hugeview(fdata){
+            var master = document.createElement('div')
+            master.setAttribute('class',"masterholder")
+            master.setAttribute('sid',fdata.sid)
+
+            var holder = document.createElement('div')
+            holder.setAttribute('id',"fd")
+            holder.setAttribute('class',"contentholder")
+            master.appendChild(holder)
+
+            var pholder = document.createElement('div')
+            pholder.setAttribute('class',"profileholder")
+            holder.appendChild(pholder)
+            pholder.style.marginLeft = "10px"
+            pholder.style.display = "flex"
+            pholder.innerHTML = '<div class="pimage"></div><div style="width: 100%;margin: 2%;"></div>'
+
+            var pimg = document.createElement('img')
+            pimg.setAttribute('src',fdata.actor.profile_image_url)
+            pholder.childNodes[0].appendChild(pimg)
+
+            var pname = document.createElement('a')
+            pname.setAttribute('class',"pname")
+            pname.setAttribute('onclick',"getprofile('"+fdata.actor.id+"')")
+            pname.textContent = fdata.actor.display_name
+            pholder.childNodes[1].appendChild(pname)
+
+            var pid = document.createElement('pre')
+            pid.setAttribute('class',"pid")
+            pid.textContent = timetostr(fdata.updated_at)
+            pholder.childNodes[1].appendChild(pid)
+
+            var pcnt = document.createElement('pre')
+            pcnt.setAttribute('class',"pcontent")
+            pcnt.innerHTML = ctntohtml(fdata.content_decorators)
+            holder.appendChild(pcnt)
+
+            if (fdata.media_type == "image") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md')
+                mdhldr.setAttribute('pg',0)
+                holder.appendChild(mdhldr)
+                for (var u = 0; u < fdata.media.length; u++){
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;">'
+                }
+            }
+            if (fdata.media_type == "video") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md')
+                mdhldr.setAttribute('pg',0)
+                holder.appendChild(mdhldr)
+                for (var u = 0; u < fdata.media.length; u++){
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: block;" controls></video>'
+                }
+            }
+            if (fdata.media_type == "scrap") {
+                var mdhldr = document.createElement('div')
+                mdhldr.setAttribute('class','media_holder')
+                mdhldr.setAttribute('id','md')
+                mdhldr.setAttribute('pg',0)
+                mdhldr.setAttribute('onclick',"window.open('" +fdata.scrap.requested_url+ "')")
+                holder.appendChild(mdhldr)
+                mdhldr.innerHTML = '<pre class="urlstr">'+fdata.scrap.title+'\n'+fdata.scrap.site_name+'</pre>'
+                mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+            }
+            if (fdata.verb == 'share'){
+                var vshare = hugeview(fdata.object,'_s')
+                holder.appendChild(vshare)
+                vshare.style = 'border: 2px dashed #454545; border-radius: 20px;'
+            }
+
+            var rholder = document.createElement('div')
+            rholder.setAttribute('id',"rd")
+            rholder.setAttribute('class',"reactholder")
+            master.appendChild(rholder)
+            rholder.innerHTML = `<span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>
+                <span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>
+                <span class="dd" style="height: 50px;width: 10%;min-width: 54px;margin: 2px;margin-bottom: 1%;display: block;text-align: center;line-height: 50px;"></span>`
+            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.like_count+'</span>'
+            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
+<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.comment_count+'</span>'
+            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
+                <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="pcontent" style="vertical-align: middle; color: #aaa;">`+fdata.share_count+'</span>'
+            return master
+        }
+
+        function showcontent(cdata) {
+            g_stopautoload = true
+            if (document.querySelector("body > div > div.contents") == undefined) {
+                document.querySelector("body > div.container").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
+            }
+            var mainctn = document.querySelector("body > div > div.contents")
+            mainctn.innerHTML = ''
+            mainctn.appendChild(hugeview(cdata))
+            getcomment(cdata.sid,30,'desc',mainctn)
+        }
+
+        function showcomment(fdata,ctn) {
+            for (var i = 0; i < fdata.length; i++){
+                var master = document.createElement('div')
+                master.setAttribute('class',"masterholder")
+                master.setAttribute('cid',fdata[i].id)
+                master.style.background = 'none'
+
+                var holder = document.createElement('div')
+                holder.setAttribute('id',"fd")
+                holder.setAttribute('class',"contentholder")
+                master.appendChild(holder)
+
+                var pholder = document.createElement('div')
+                pholder.setAttribute('class',"profileholder")
+                holder.appendChild(pholder)
+                pholder.style.marginLeft = "10px"
+                pholder.style.display = "flex"
+                pholder.style.margin = "0%"
+                pholder.innerHTML = '<div class="pimage"></div><div style="width: 100%;margin: 2%;display: flex;align-items: flex-start;"></div>'
+
+                var pimg = document.createElement('img')
+                pimg.setAttribute('src',fdata[i].writer.profile_image_url2)
+                pholder.childNodes[0].appendChild(pimg)
+
+                var pname = document.createElement('a')
+                pname.setAttribute('class',"pname")
+                pname.textContent = fdata[i].writer.display_name
+                pholder.childNodes[1].appendChild(pname)
+
+                var pid = document.createElement('pre')
+                pid.setAttribute('class',"pid")
+                pid.style.marginLeft = '2%'
+                pid.textContent = timetostr(fdata[i].created_at)
+                pholder.childNodes[1].appendChild(pid)
+
+                var pcnt = document.createElement('pre')
+                pcnt.setAttribute('class',"pcontent")
+                pcnt.innerHTML = ctntohtml(fdata[i].decorators)
+                pcnt.style.paddingBottom = '2%'
+                holder.appendChild(pcnt)
+
+                if (fdata[i].media_type == "image") {
+                    var mdhldr = document.createElement('div')
+                    mdhldr.setAttribute('class','media_holder')
+                    mdhldr.setAttribute('id','md')
+                    mdhldr.setAttribute('pg',0)
+                    holder.appendChild(mdhldr)
+                    for (var u = 0; u < fdata[i].media.length; u++){
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata[i].media[u].origin_url+'" style="display: block;">'
+                    }
+                }
+                ctn.appendChild(master)
+            }
         }
 
         function shownotific(notdata) {
@@ -770,6 +996,32 @@
             });
         }
 
+        function getcomment(sid,lpp,order,hobj) {
+            sendreq('https://story.kakao.com/a/activities/'+sid+'/comments?lpp='+lpp+'&order='+order+'&_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        showcomment(JSON.parse(recdata[1]),hobj)
+                    }
+                }
+            });
+        }
+
+        function getcontents(sid) {
+            sendreq('https://story.kakao.com/a/activities/'+sid+'?from=home&_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        showcontent(JSON.parse(recdata[1]))
+                    }
+                }
+            });
+        }
+
         function gettimeline() {
             sendreq('https://story.kakao.com/a/feeds?ag=false&_='+gentime(),"get","",g_cookie, function (error, response) {
                 if (!error) {
@@ -832,8 +1084,8 @@
             var currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
             var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0;
 
-            if ((currentScroll + windowHeight) / totalHeight >= 0.8 & !n_waitingtimeline) {
-                n_waitingtimeline = true
+            if ((currentScroll + windowHeight) / totalHeight >= 0.8 & !g_stopautoload) {
+                g_stopautoload = true
                 var xa = document.querySelector("body > div.container > div").childNodes
                 moretimeline(xa[xa.length-1].getAttribute('sid'))
             }
