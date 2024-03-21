@@ -16,18 +16,50 @@
             align-items: center;
             justify-content: center;
         }
-
-        .container {
+        .lowbar {
+            width: 100%;
+            height: 7%;
+            position: fixed;
+            bottom: 0px;
+            background-color: #00000090;
+            opacity: 100%;
+            backdrop-filter: blur(7px);
+            z-index: 2;
+            box-shadow: 0px -5px 25px rgb(0, 0, 0);
+        }
+        .finwrapper {
+            width: 100%;
             height: 100%;
-            width: auto;
-            aspect-ratio: 1 / 1;
-            max-width: -webkit-fill-available;
+            position: fixed;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            position: absolute;
+            top: 0px;
+            height: auto;
+            max-width: 1500px;
             background-color: #161616;
             display: flex;
             align-items: center;
             flex-direction: column;
             align-content: center;
             justify-content: center;
+            width: -webkit-fill-available;
+        }
+        .loginbox {
+            position: absolute;
+            top: 0px;
+            height: auto;
+            max-width: 1500px;
+            background-color: #161616;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            width: -webkit-fill-available;
         }
 
         .rectangle {
@@ -242,18 +274,23 @@
     <title>ZTR beta</title>
 </head>
 <body>
+    <div class="lowbar"></div>
     <div class="rainbow" style="height: 0.2%;width: 100%;position: fixed;top: 0px;z-index: 2;"></div>
-    <div class="container">
-        <img src="https://raw.githubusercontent.com/Kelrit402/ZTR/1538bdc546f2c88d698ba54b47370306750c1062/ztr.png" style="width: 30%; margin-top: 10%; margin-bottom: 10%;">
-        <div class="input-container">
-            <input type="text" id="uid" required=""/>
-            <label>email</label>
+    <div class="finwrapper">
+        <div class="container">
         </div>
-        <div class="input-container">
-            <input type="password" id="upw" required=""/>
-            <label>pw</label>
+        <div class="loginbox">
+            <img src="https://raw.githubusercontent.com/Kelrit402/ZTR/1538bdc546f2c88d698ba54b47370306750c1062/ztr.png" style="width: 30%; margin-top: 10%; margin-bottom: 10%;">
+            <div class="input-container">
+                <input type="text" id="uid" required=""/>
+                <label>email</label>
+            </div>
+            <div class="input-container">
+                <input type="password" id="upw" required=""/>
+                <label>pw</label>
+            </div>
+            <button type="button" class="btn" onclick="login()">로그인</button>
         </div>
-        <button type="button" class="btn" onclick="login()">로그인</button>
     </div>
 
     <script>
@@ -464,7 +501,6 @@
 
             var pname = document.createElement('a')
             pname.setAttribute('class',"pname")
-            pname.setAttribute('onclick',"getprofile('"+fdata.actor.id+"')")
             pname.textContent = fdata.actor.display_name
             pholder.childNodes[1].appendChild(pname)
 
@@ -485,13 +521,13 @@
                 mdhldr.setAttribute('pg',0)
                 holder.appendChild(mdhldr)
                 if (fdata.media.length != 1) {
-                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1)">⩽</p>`
+                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1,event)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1,event)">⩽</p>`
                 }
                 for (var u = 0; u < fdata.media.length; u++){
                     if (u==0){
-                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;">'
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;" getcontents("'+fdata.sid+'")>'
                     }else{
-                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: none;">'
+                        mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: none;" getcontents("'+fdata.sid+'")>'
                     }
                 }
             }
@@ -502,7 +538,7 @@
                 mdhldr.setAttribute('pg',0)
                 holder.appendChild(mdhldr)
                 if (fdata.media.length != 1) {
-                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1)">⩽</p>`
+                    mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%; width: 100%;" onclick="pagemedia('md`+idnum+`',1,event)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1,event)">⩽</p>`
                 }
                 for (var u = 0; u < fdata.media.length; u++){
                     if (u==0){
@@ -523,7 +559,7 @@
                 mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
             }
             if (fdata.verb == 'share'){
-                var vshare = largeview(fdata.object,'_s'+idnum)
+                var vshare = largeview(fdata.object,'_s'+idnum,)
                 holder.appendChild(vshare)
                 vshare.style = 'border: 2px dashed #454545; border-radius: 20px;'
             }
@@ -548,10 +584,10 @@
         }
 
         function showtimeline(feeddata,append = false) {
-            if (document.querySelector("body > div > div.contents") == undefined) {
-                document.querySelector("body > div.container").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
+            if (document.querySelector("body > div.finwrapper > div > div") == undefined) {
+                document.querySelector("body > div.finwrapper > div").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
             }
-            var mainctn = document.querySelector("body > div > div.contents")
+            var mainctn = document.querySelector("body > div.finwrapper > div > div")
             if (!append) {
                 mainctn.innerHTML = ''
             }
@@ -608,7 +644,7 @@
                 mdhldr.setAttribute('pg',0)
                 holder.appendChild(mdhldr)
                 for (var u = 0; u < fdata.media.length; u++){
-                    mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;">'
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;max-height: none;width: 100%;">'
                 }
             }
             if (fdata.media_type == "video") {
@@ -618,7 +654,7 @@
                 mdhldr.setAttribute('pg',0)
                 holder.appendChild(mdhldr)
                 for (var u = 0; u < fdata.media.length; u++){
-                    mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: block;" controls></video>'
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: block;max-height: none;width: 100%;" controls></video>'
                 }
             }
             if (fdata.media_type == "scrap") {
@@ -634,6 +670,7 @@
             if (fdata.verb == 'share'){
                 var vshare = hugeview(fdata.object,'_s')
                 holder.appendChild(vshare)
+                holder.setAttribute('onclick', 'getcontents("'+fdata.object.sid+'")')
                 vshare.style = 'border: 2px dashed #454545; border-radius: 20px;'
             }
 
@@ -671,42 +708,41 @@
             for (var i = 0; i < fdata.length; i++){
                 var master = document.createElement('div')
                 master.setAttribute('class',"masterholder")
-                master.setAttribute('cid',fdata[i].id)
+                master.setAttribute('sid',fdata[i].id)
                 master.style.background = 'none'
 
                 var holder = document.createElement('div')
-                holder.setAttribute('id',"fd")
+                holder.setAttribute('id',"cd"+i)
                 holder.setAttribute('class',"contentholder")
+                holder.style.display = 'flex'
                 master.appendChild(holder)
+                holder.innerHTML = '<div class="pimage"></div>'
+
+                var pimg = document.createElement('img')
+                pimg.setAttribute('src',fdata[i].writer.profile_image_url2)
+                holder.childNodes[0].appendChild(pimg)
 
                 var pholder = document.createElement('div')
                 pholder.setAttribute('class',"profileholder")
                 holder.appendChild(pholder)
-                pholder.style.marginLeft = "10px"
-                pholder.style.display = "flex"
-                pholder.style.margin = "0%"
-                pholder.innerHTML = '<div class="pimage"></div><div style="width: 100%;margin: 2%;display: flex;align-items: flex-start;"></div>'
-
-                var pimg = document.createElement('img')
-                pimg.setAttribute('src',fdata[i].writer.profile_image_url2)
-                pholder.childNodes[0].appendChild(pimg)
+                pholder.style = "width: 100%;margin-left: 10px;display: inline-block;"
 
                 var pname = document.createElement('a')
                 pname.setAttribute('class',"pname")
                 pname.textContent = fdata[i].writer.display_name
-                pholder.childNodes[1].appendChild(pname)
+                pholder.appendChild(pname)
 
                 var pid = document.createElement('pre')
                 pid.setAttribute('class',"pid")
-                pid.style.marginLeft = '2%'
                 pid.textContent = timetostr(fdata[i].created_at)
-                pholder.childNodes[1].appendChild(pid)
+                pholder.appendChild(pid)
 
                 var pcnt = document.createElement('pre')
                 pcnt.setAttribute('class',"pcontent")
+                pcnt.style.marginLeft = '0px'
                 pcnt.innerHTML = ctntohtml(fdata[i].decorators)
-                pcnt.style.paddingBottom = '2%'
-                holder.appendChild(pcnt)
+                pholder.appendChild(pcnt)
+
 
                 if (fdata[i].media_type == "image") {
                     var mdhldr = document.createElement('div')
@@ -861,7 +897,8 @@
             }
         }
 
-        function pagemedia(bid,num){
+        function pagemedia(bid,num,event){
+            event.stopPropagation()
             xa = document.getElementById(bid).childNodes
             xn = parseInt(document.getElementById(bid).getAttribute('pg'))+2
             if (num == 1 & xa[xn+1] != undefined){
@@ -1023,6 +1060,9 @@
         }
 
         function gettimeline() {
+            if (document.querySelector("body > div.finwrapper > div.loginbox") != undefined) {
+                document.querySelector("body > div.finwrapper > div.loginbox").remove()
+            }
             sendreq('https://story.kakao.com/a/feeds?ag=false&_='+gentime(),"get","",g_cookie, function (error, response) {
                 if (!error) {
                     recdata = JSON.parse(response);
