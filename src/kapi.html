@@ -370,7 +370,7 @@
                 </svg>
             </div>
             <div class="input-container" style="width: 60%;">
-                <textarea type="text" id="uid" required=""></textarea>
+                <textarea type="text" id="cmtinput" required=""></textarea>
             </div>
             <div class="svgui" onclick="gettimeline()">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
@@ -403,6 +403,18 @@
         var mserver = "http://ec2-43-203-221-155.ap-northeast-2.compute.amazonaws.com:5000"; 
         var g_cookie = ""
         var g_stopautoload = false
+
+        var d_paths = {
+            iclike: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            comment: '<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>',
+            share: '<path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_like: '',
+            like_good: '',
+            like_prs: '',
+            like_sad: '',
+            like_chup: ''
+        }
+        
         function login(){
             sendreq("","login",JSON.stringify([document.getElementById("uid").value,document.getElementById("upw").value]),"", function (error, response) {
                     if (!error) {
@@ -679,15 +691,12 @@
             rholder.innerHTML = `<span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>`
-            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.like_count+'</span>'
-            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
-<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.comment_count+'</span>'
-            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
-                <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.share_count+'</span>'
+            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24"> </svg>
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.like_count+'</span>'
+            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;"> </svg>
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.comment_count+'</span>'
+            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;"> </svg>
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.share_count+'</span>'
             return master
         }
 
@@ -791,13 +800,13 @@
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>`
             rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.like_count+'</span>'
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.like_count+'</span>'
             rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
 <path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.comment_count+'</span>'
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.comment_count+'</span>'
             rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
                 <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;vertical-align: middle;">`+fdata.share_count+'</span>'
+<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.share_count+'</span>'
             return master
         }
 
@@ -929,6 +938,9 @@
                 pname.setAttribute('class',"pname")
                 pname.innerHTML = ctntohtml(notdata[i].decorators)
                 pholder.childNodes[1].appendChild(pname)
+                for (var u = 0; u < pname.children.length; u++){
+                    pname.children[u].style = "font-size: 26px;"
+                }
 
                 if (notdata[i].content != undefined){
                     var pcnt = document.createElement('a')
@@ -943,7 +955,7 @@
                 pid.textContent = timetostr(notdata[i].created_at)
                 pholder.childNodes[1].appendChild(pid)
 
-                if (notdata[i].thumbnail_url != "") {
+                if (notdata[i].thumbnail_url != "" & notdata[i].thumbnail_url != undefined) {
                     var mdhldr = document.createElement('div')
                     mdhldr.setAttribute('class','media_holder')
                     mdhldr.setAttribute('id','md'+i)
@@ -1000,6 +1012,10 @@
 
                 master.appendChild(document.createElement('hr'))
             }
+        }
+
+        function emotemenu(element,sid){
+
         }
 
         function showds(dsdata) {
@@ -1180,18 +1196,17 @@
         function appendemote(likes,hobj){
             var pholder = document.createElement('div')
             pholder.setAttribute('class',"emoteholder")
-            pholder.style.marginLeft = "10px"
-            pholder.style.display = "flex"
+            pholder.style = "margin-left: 10px;display: flex;margin-left: 8%;"
             hobj.appendChild(pholder)
             function emocode(emo,pic){
                 var bimg = document.createElement('div')
                 bimg.setAttribute('class',"bimg")
-                bimg.setAttribute('style','width: 7%;height: 7%;border-radius: 70%;overflow: hidden;border: 4px solid #'+emo+';"')
+                bimg.style="position: relative;width: 66px;height: 66px;border-radius: 70%;overflow: hidden;margin-left: -30px;filter: drop-shadow(-10px 0px 10px black);border: 4px solid #"+emo+';"'
                 pholder.appendChild(bimg)
 
                 var pimg = document.createElement('img')
                 pimg.setAttribute('src',pic)
-                pimg.setAttribute('style','width: 100%;height: 100%;object-fit: cover; display: block;')
+                pimg.style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;object-fit: cover;margin: auto;"
                 bimg.appendChild(pimg)
             }
             for (var i = 0; i < likes.length; i++){
@@ -1280,6 +1295,21 @@
                     shownotific(JSON.parse(recdata[1]))
                 }
             });
+        }
+
+
+        function postlike(sid,emotion) {
+            sendreq('https://story.kakao.com/a/activities/'+sid+'/like?_='+gentime(),"post","emotion=like",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        console.log(recdata[0])
+                    }else{
+                        return true
+                    }
+                }
+            });
+            return false
         }
 
         function getstatus() {
