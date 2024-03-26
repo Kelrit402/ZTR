@@ -406,13 +406,15 @@
 
         var d_paths = {
             iclike: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
-            comment: '<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>',
-            share: '<path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
-            like_like: '',
-            like_good: '',
-            like_prs: '',
-            like_sad: '',
-            like_chup: ''
+            iccomment: '<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>',
+            icshare: '<path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            icbackward: '<path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"></path>',
+            like_like: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#ff4848" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_good: '<path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#48ff62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_prs: '<path d="M8.4 13.8C8.4 13.8 9.75 15.6 12 15.6C14.25 15.6 15.6 13.8 15.6 13.8M14.7 9.3H14.709M9.3 9.3H9.309M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM15.15 9.3C15.15 9.54853 14.9485 9.75 14.7 9.75C14.4515 9.75 14.25 9.54853 14.25 9.3C14.25 9.05147 14.4515 8.85 14.7 8.85C14.9485 8.85 15.15 9.05147 15.15 9.3ZM9.75 9.3C9.75 9.54853 9.54853 9.75 9.3 9.75C9.05147 9.75 8.85 9.54853 8.85 9.3C8.85 9.05147 9.05147 8.85 9.3 8.85C9.54853 8.85 9.75 9.05147 9.75 9.3Z" stroke="#f9ff48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_sad: '<path d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z" stroke="#486fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 8.2C8 9.7464 7.11083 11 5.5 11C3.88917 11 3 9.7464 3 8.2C3 6.6536 5.5 3 5.5 3C5.5 3 8 6.6536 8 8.2Z" stroke="#486fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_chup: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9718 26.9747C11.6511 27.5664 9.99072 29.5749 9.99072 33.0003C9.99072 38.1384 15.1438 44.0003 19.7905 44.0003C24.4372 44.0003 27.1321 44.0003 31.6802 44.0003C36.2283 44.0003 38.9907 40.1497 38.9907 37.0604C38.9907 32.7101 38.9907 28.3597 38.9907 24.0094C38.9907 22.3526 37.6476 21.0094 35.9907 21.0094H35.9816C34.3298 21.0094 32.9907 22.3485 32.9907 24.0003" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M14.9719 30.0403V21.0132C14.9719 19.3548 16.3163 18.0104 17.9747 18.0104C17.9757 18.0104 17.9767 18.0104 17.9778 18.0104C19.6384 18.0121 20.9836 19.3588 20.9836 21.0194V25.023" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M20.9836 24.0085V7.01562C20.9836 5.35022 22.3337 4.00014 23.9991 4.00014C25.6645 4.00014 27.0146 5.35022 27.0146 7.01562V24.0085" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M26.9907 23.7159V21.0036C26.9907 19.3467 28.3339 18.0036 29.9907 18.0036C31.6476 18.0036 32.9907 19.3467 32.9907 21.0036V24.0036" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>'
+            
         }
         
         function login(){
@@ -598,9 +600,6 @@
             var master = document.createElement('div')
             master.setAttribute('class',"masterholder")
             master.setAttribute('sid',fdata.sid)
-            if (!ignore){
-                master.setAttribute('onclick', 'getcontents("'+fdata.sid+'")')
-            }
             //mainctn.appendChild(master)
 
             var holder = document.createElement('div')
@@ -632,14 +631,21 @@
             var pcnt = document.createElement('pre')
             pcnt.setAttribute('class',"pcontent")
             pcnt.innerHTML = truncateString(ctntohtml(fdata.content_decorators))
+            if (!ignore){
+                pcnt.setAttribute('onclick', 'getcontents("'+fdata.sid+'")')
+            }
             holder.appendChild(pcnt)
 
+            var mdhldr = document.createElement('div')
+            mdhldr.setAttribute('class','media_holder')
+            mdhldr.setAttribute('id','md'+idnum)
+            mdhldr.setAttribute('pg',0)
+            if (!ignore){
+                mdhldr.setAttribute('onclick', 'getcontents("'+fdata.sid+'")')
+            }
+            holder.appendChild(mdhldr)
+
             if (fdata.media_type == "image") {
-                var mdhldr = document.createElement('div')
-                mdhldr.setAttribute('class','media_holder')
-                mdhldr.setAttribute('id','md'+idnum)
-                mdhldr.setAttribute('pg',0)
-                holder.appendChild(mdhldr)
                 if (fdata.media.length != 1) {
                     mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%;" onclick="pagemedia('md`+idnum+`',1,event)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1,event)">⩽</p>`
                 }
@@ -652,11 +658,6 @@
                 }
             }
             if (fdata.media_type == "video") {
-                var mdhldr = document.createElement('div')
-                mdhldr.setAttribute('class','media_holder')
-                mdhldr.setAttribute('id','md'+idnum)
-                mdhldr.setAttribute('pg',0)
-                holder.appendChild(mdhldr)
                 if (fdata.media.length != 1) {
                     mdhldr.innerHTML = mdhldr.innerHTML + `<p class="media_btn" style="right: 0%; width: 100%;" onclick="pagemedia('md`+idnum+`',1,event)">⩾</p><p class="media_btn" style="display: none; left: 0%;" onclick="pagemedia('md`+idnum+`',-1,event)">⩽</p>`
                 }
@@ -669,14 +670,12 @@
                 }
             }
             if (fdata.media_type == "scrap") {
-                var mdhldr = document.createElement('div')
-                mdhldr.setAttribute('class','media_holder')
-                mdhldr.setAttribute('id','md'+idnum)
-                mdhldr.setAttribute('pg',0)
+                console.log(fdata.media_type)
                 mdhldr.setAttribute('onclick',"window.open('" +fdata.scrap.requested_url+ "')")
-                holder.appendChild(mdhldr)
                 mdhldr.innerHTML = '<pre class="urlstr">'+fdata.scrap.title+'\n'+fdata.scrap.site_name+'</pre>'
-                mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+                if (fdata.scrap.image != undefined){
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+                }
             }
             if (fdata.verb == 'share'){
                 var vshare = largeview(fdata.object,'_s'+idnum,true)
@@ -688,15 +687,26 @@
             rholder.setAttribute('id',"rd"+idnum)
             rholder.setAttribute('class',"reactholder")
             master.appendChild(rholder)
-            rholder.innerHTML = `<span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
+            rholder.innerHTML = `<span class="dd" id style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;" liked="0" onclick="emotemenu('rd`+idnum+`',true)"></span>
+                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"onclick="getcontents('`+fdata.sid+`')"></span>
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
-                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>`
-            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24"> </svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.like_count+'</span>'
-            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;"> </svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.comment_count+'</span>'
-            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;"> </svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.share_count+'</span>'
+                <span class="dd" style="width: 50%;margin: 2px;margin-bottom: 1%;display: none;align-items: center;"></span>`
+            rholder.children[0].innerHTML = '<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">'+d_paths.iclike+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.like_count+'</span>'
+            rholder.children[1].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;" >'+d_paths.iccomment+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.comment_count+'</span>'
+            rholder.children[2].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">'+d_paths.icshare+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.share_count+'</span>'
+            rholder.children[3].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-right: 4%;transform: rotate(180deg);" viewBox="0 0 24 24" onclick="emotemenu('rd`+idnum+`',false)">`+d_paths.iclike+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
+            
+            if (fdata.liked){
+                console.log("rd"+idnum)
+                setTimeout(() => {
+                    marklike(fdata.sid,fdata.liked_emotion,"rd"+idnum)
+                }, 50);
+            }
             return master
         }
 
@@ -708,16 +718,22 @@
             if (!append) {
                 mainctn.innerHTML = ''
             }
+            var startnum = 0
+            if (append){
+                startnum = mainctn.children.length
+            }
             for (var i = 0; i < feeddata.length; i++){
                 if (feeddata[i].verb !== "post" && feeddata[i].verb !== "share") {
                     continue;
                 }
-                mainctn.appendChild(largeview(feeddata[i],i))
+                mainctn.appendChild(largeview(feeddata[i],i+startnum))
             }
             g_stopautoload = false
         }
 
         function hugeview(fdata){
+            var idnum = ''
+            
             var master = document.createElement('div')
             master.setAttribute('class',"masterholder")
             master.setAttribute('sid',fdata.sid)
@@ -754,16 +770,18 @@
             pcnt.innerHTML = ctntohtml(fdata.content_decorators)
             holder.appendChild(pcnt)
 
+            var mdhldr = document.createElement('div')
+            mdhldr.setAttribute('class','media_holder')
+            mdhldr.setAttribute('id','md')
+            mdhldr.setAttribute('pg',0)
+            holder.appendChild(mdhldr)
+
             if (fdata.media_type == "image") {
-                var mdhldr = document.createElement('div')
-                mdhldr.setAttribute('class','media_holder')
-                mdhldr.setAttribute('id','md')
-                mdhldr.setAttribute('pg',0)
-                holder.appendChild(mdhldr)
                 for (var u = 0; u < fdata.media.length; u++){
                     mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.media[u].origin_url+'" style="display: block;max-height: none;width: 100%;">'
                 }
             }
+
             if (fdata.media_type == "video") {
                 var mdhldr = document.createElement('div')
                 mdhldr.setAttribute('class','media_holder')
@@ -774,6 +792,7 @@
                     mdhldr.innerHTML = mdhldr.innerHTML + '<video src="'+fdata.media[u].url_hq+'" type="video/mp4" style="display: block;max-height: none;width: 100%;" controls></video>'
                 }
             }
+
             if (fdata.media_type == "scrap") {
                 var mdhldr = document.createElement('div')
                 mdhldr.setAttribute('class','media_holder')
@@ -782,8 +801,11 @@
                 mdhldr.setAttribute('onclick',"window.open('" +fdata.scrap.requested_url+ "')")
                 holder.appendChild(mdhldr)
                 mdhldr.innerHTML = '<pre class="urlstr">'+fdata.scrap.title+'\n'+fdata.scrap.site_name+'</pre>'
-                mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+                if (fdata.scrap.image != undefined){
+                    mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+fdata.scrap.image[0]+'" style="opacity: 40%;border-radius: 30px;">'
+                }
             }
+
             if (fdata.verb == 'share'){
                 var vshare = hugeview(fdata.object,true)
                 holder.appendChild(vshare)
@@ -795,18 +817,25 @@
             rholder.setAttribute('id',"rd")
             rholder.setAttribute('class',"reactholder")
             master.appendChild(rholder)
-            rholder.innerHTML = `<span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
+            rholder.innerHTML = `<span class="dd" id style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;" liked="0" onclick="emotemenu('rd`+idnum+`',true)"></span>
+                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"onclick="getcontents('`+fdata.sid+`')"></span>
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
-                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>`
-            rholder.childNodes[0].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.like_count+'</span>'
-            rholder.childNodes[2].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
-<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.comment_count+'</span>'
-            rholder.childNodes[4].innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">
-                <path d="M20 4L12 12M20 4V8.5M20 4H15.5M19 12.5V16.8C19 17.9201 19 18.4802 18.782 18.908C18.5903 19.2843 18.2843 19.5903 17.908 19.782C17.4802 20 16.9201 20 15.8 20H7.2C6.0799 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4 18.4802 4 17.9201 4 16.8V8.2C4 7.0799 4 6.51984 4.21799 6.09202C4.40973 5.71569 4.71569 5.40973 5.09202 5.21799C5.51984 5 6.07989 5 7.2 5H11.5" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">`+fdata.share_count+'</span>'
+                <span class="dd" style="width: 50%;margin: 2px;margin-bottom: 1%;display: none;align-items: center;"></span>`
+            rholder.children[0].innerHTML = '<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">'+d_paths.iclike+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.like_count+'</span>'
+            rholder.children[1].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;" >'+d_paths.iccomment+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.comment_count+'</span>'
+            rholder.children[2].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">'+d_paths.icshare+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.share_count+'</span>'
+            rholder.children[3].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-right: 4%;transform: rotate(180deg);" viewBox="0 0 24 24" onclick="emotemenu('rd`+idnum+`',false)">`+d_paths.iclike+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
+            
+            if (fdata.liked){
+                setTimeout(() => {
+                    marklike(fdata.sid,fdata.liked_emotion,"rd"+idnum,addcount)
+                }, 50);
+            }
             return master
         }
 
@@ -1014,8 +1043,19 @@
             }
         }
 
-        function emotemenu(element,sid){
-
+        function emotemenu(element,on=false){
+            rg = document.querySelector("#"+element)
+            if (on) {
+                rg.children[0].style.display = 'none'
+                rg.children[1].style.display = 'none'
+                rg.children[2].style.display = 'none'
+                rg.children[3].style.display = 'flex'
+            }else{
+                rg.children[0].style.display = 'flex'
+                rg.children[1].style.display = 'flex'
+                rg.children[2].style.display = 'flex'
+                rg.children[3].style.display = 'none'
+            }
         }
 
         function showds(dsdata) {
@@ -1280,6 +1320,7 @@
                     if (recdata[0] != 200) {
                         console.log(recdata[0])
                     }else{
+                        console.log(JSON.parse(recdata[1]).feeds)
                         showtimeline(JSON.parse(recdata[1]).feeds,true)
                     }
                 }
@@ -1298,14 +1339,47 @@
         }
 
 
-        function postlike(sid,emotion) {
-            sendreq('https://story.kakao.com/a/activities/'+sid+'/like?_='+gentime(),"post","emotion=like",g_cookie, function (error, response) {
+        function postlike(sid,emotion,element) {
+            emotemenu(element,false)
+            sendreq('https://story.kakao.com/a/activities/'+sid+'/like?_='+gentime(),"post","emotion="+emotion,g_cookie, function (error, response) {
                 if (!error) {
                     recdata = JSON.parse(response);
                     if (recdata[0] != 200) {
                         console.log(recdata[0])
                     }else{
-                        return true
+                        marklike(sid,emotion,element,1)
+                    }
+                }
+            });
+            return false
+        }
+
+        function marklike(sid,emotion,element,acnt=0){
+            console.log(document.querySelector("#"+element))
+            var xhld = document.querySelector("#"+element+" > span:nth-child(1) > svg")
+            var xhli = document.querySelector("#"+element+" > span:nth-child(1) > span")
+            bemotion = (emotion == 'like')?d_paths.like_like:
+                (emotion == 'good')?d_paths.like_good:
+                (bemotion = emotion == 'pleasure')?d_paths.like_prs:
+                (bemotion = emotion == 'sad')?d_paths.like_sad:
+                (bemotion = emotion == 'cheerup')?d_paths.like_chup:xhld.innerHTML;
+            xhld.innerHTML = bemotion
+            document.querySelector("#"+element+" > span:nth-child(1)").setAttribute('onclick','dellike("'+sid+'","'+element+'")')
+            
+            xhli.innerText = parseInt(xhli.innerText)+acnt
+        }
+
+        function dellike(sid,element) {
+            sendreq('https://story.kakao.com/a/activities/'+sid+'/like?_='+gentime(),"del","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        console.log(recdata[0])
+                    }else{
+                        document.querySelector("#"+element+" > span:nth-child(1) > svg").innerHTML = d_paths.iclike
+                        var xhli = document.querySelector("#"+element+" > span:nth-child(1) > span")
+                        xhli.innerText = parseInt(xhli.innerText)-1
+                        document.querySelector("#"+element+" > span:nth-child(1)").setAttribute('onclick','emotemenu("'+element+'",true)')
                     }
                 }
             });
