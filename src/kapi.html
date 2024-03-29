@@ -17,8 +17,9 @@
             justify-content: center;
         }
         .svgui {
-            margin: 2%;
+            margin: 15px;
             width: 20%;
+            max-width: 150px;
             display: flex;
             justify-content: center;
         }
@@ -108,6 +109,7 @@
             transition: all 0.1s ease-in-out;
         }
         .input-container textarea{ 
+            font-family: "Noto Sans KR", sans-serif;
             border: 0;
             border-bottom: 2px solid #aaa;
             background: transparent;
@@ -202,6 +204,8 @@
             margin-left: 2%;
         }
         .hugewrapper {
+            height: 100%;
+            overflow: auto;
             position: inherit;
             width: 100%;
             min-height: 100%;
@@ -332,6 +336,91 @@
         .pcircle {
             border-radius: 50%;
         }
+
+        .button-a {
+        align-items: center;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+        border: 0;
+        border-radius: 20px;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 140px;
+        padding: 17px 24px;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+        }
+
+        .button-a:active,
+        .button-a:hover {
+        outline: 0;
+        }
+
+        @media (min-width: 768px) {
+        .button-a {
+            font-size: 24px;
+            min-width: 196px;
+        }
+        }
+
+        .button-b {
+        align-items: center;
+        background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+        border: 0;
+        border-radius: 20px;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        display: flex;
+        font-family: Phantomsans, sans-serif;
+        font-size: 20px;
+        justify-content: center;
+        line-height: 1em;
+        max-width: 100%;
+        min-width: 140px;
+        padding: 3px;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+        }
+
+        .button-b:active,
+        .button-b:hover {
+        outline: 0;
+        }
+
+        .button-b span {
+        background-color: rgb(5, 6, 45);
+        padding: 14px 24px;
+        border-radius: 20px;
+        width: 100%;
+        height: 100%;
+        transition: 300ms;
+        }
+
+        .button-b:hover span {
+        background: none;
+        }
+
+        @media (min-width: 768px) {
+        .button-b {
+            font-size: 24px;
+            min-width: 196px;
+        }
+        }
     </style>
     <title>ZTR beta</title>
 </head>
@@ -364,7 +453,7 @@
         </div>
 
         <div class="lowbar_comment">
-            <div class="svgui" onclick="closecontent()">
+            <div class="svgui" onclick="closecontent()" style="width: 10%;">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
                     <path d="M3 8H16.5C18.9853 8 21 10.0147 21 12.5C21 14.9853 18.9853 17 16.5 17H3M3 8L6 5M3 8L6 11" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
@@ -372,7 +461,12 @@
             <div class="input-container" style="width: 60%;">
                 <textarea type="text" id="cmtinput" required=""></textarea>
             </div>
-            <div class="svgui" onclick="gettimeline()">
+            <div class="svgui" onclick="gettimeline()" style="width: 10%;">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
+                    <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+            </div>
+            <div class="svgui" id="sendcmt" target="" onclick="postcomment()" style="width: 10%;">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
                     <path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
@@ -383,8 +477,7 @@
     <div class="scroverray"></div>
     
     <div class="finwrapper" onscroll="handleScroll()">
-        <div class="container">
-        </div>
+        <div class="container"></div>
         <div class="loginbox">
             <img src="https://raw.githubusercontent.com/Kelrit402/ZTR/1538bdc546f2c88d698ba54b47370306750c1062/ztr.png" style="width: 30%; margin-top: 10%; margin-bottom: 10%;">
             <div class="input-container">
@@ -403,7 +496,9 @@
         var mserver = "http://ec2-43-203-221-155.ap-northeast-2.compute.amazonaws.com:5000"; 
         var g_cookie = ""
         var g_stopautoload = false
+        var g_mstat = null
 
+        var d_profiletemp = ''
         var d_paths = {
             iclike: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
             iccomment: '<path d="M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke="#aaa" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>',
@@ -411,10 +506,28 @@
             icbackward: '<path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"></path>',
             like_like: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#ff4848" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
             like_good: '<path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#48ff62" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
-            like_prs: '<path d="M8.4 13.8C8.4 13.8 9.75 15.6 12 15.6C14.25 15.6 15.6 13.8 15.6 13.8M14.7 9.3H14.709M9.3 9.3H9.309M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12ZM15.15 9.3C15.15 9.54853 14.9485 9.75 14.7 9.75C14.4515 9.75 14.25 9.54853 14.25 9.3C14.25 9.05147 14.4515 8.85 14.7 8.85C14.9485 8.85 15.15 9.05147 15.15 9.3ZM9.75 9.3C9.75 9.54853 9.54853 9.75 9.3 9.75C9.05147 9.75 8.85 9.54853 8.85 9.3C8.85 9.05147 9.05147 8.85 9.3 8.85C9.54853 8.85 9.75 9.05147 9.75 9.3Z" stroke="#f9ff48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            like_prs: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24ZM6.05132 15.3162C6.22161 15.8271 6.60751 16.5217 7.29289 17.2071C8.41492 18.3291 9.98027 19 12 19C14.0197 19 15.5851 18.3291 16.7071 17.2071C17.3925 16.5217 17.7784 15.8271 17.9487 15.3162C18.1233 14.7923 17.8402 14.226 17.3162 14.0513C16.7923 13.8767 16.226 14.1598 16.0513 14.6838C15.9716 14.9229 15.7325 15.3533 15.2929 15.7929C14.5399 16.5459 13.4803 17 12 17C10.5197 17 9.46008 16.5459 8.70711 15.7929C8.26749 15.3533 8.02839 14.9229 7.94868 14.6838C7.77404 14.1598 7.20772 13.8767 6.68377 14.0513C6.15983 14.226 5.87667 14.7923 6.05132 15.3162ZM7.5547 8.83205L7.9453 8.57165C8.2812 8.34772 8.7188 8.34772 9.0547 8.57165L9.4453 8.83205C9.90483 9.1384 10.5257 9.01423 10.8321 8.5547C11.1384 8.09517 11.0142 7.4743 10.5547 7.16795L10.1641 6.90755C9.1564 6.23575 7.8436 6.23575 6.8359 6.90755L6.4453 7.16795C5.98577 7.4743 5.8616 8.09517 6.16795 8.5547C6.4743 9.01423 7.09517 9.1384 7.5547 8.83205ZM14.5547 8.83205L14.9453 8.57165C15.2812 8.34772 15.7188 8.34772 16.0547 8.57165L16.4453 8.83205C16.9048 9.1384 17.5257 9.01423 17.8321 8.5547C18.1384 8.09517 18.0142 7.4743 17.5547 7.16795L17.1641 6.90755C16.1564 6.23575 14.8436 6.23575 13.8359 6.90755L13.4453 7.16795C12.9858 7.4743 12.8616 8.09517 13.1679 8.5547C13.4743 9.01423 14.0952 9.1384 14.5547 8.83205Z" fill="#f9ff48"></path>',
             like_sad: '<path d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z" stroke="#486fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 8.2C8 9.7464 7.11083 11 5.5 11C3.88917 11 3 9.7464 3 8.2C3 6.6536 5.5 3 5.5 3C5.5 3 8 6.6536 8 8.2Z" stroke="#486fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
-            like_chup: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9718 26.9747C11.6511 27.5664 9.99072 29.5749 9.99072 33.0003C9.99072 38.1384 15.1438 44.0003 19.7905 44.0003C24.4372 44.0003 27.1321 44.0003 31.6802 44.0003C36.2283 44.0003 38.9907 40.1497 38.9907 37.0604C38.9907 32.7101 38.9907 28.3597 38.9907 24.0094C38.9907 22.3526 37.6476 21.0094 35.9907 21.0094H35.9816C34.3298 21.0094 32.9907 22.3485 32.9907 24.0003" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M14.9719 30.0403V21.0132C14.9719 19.3548 16.3163 18.0104 17.9747 18.0104C17.9757 18.0104 17.9767 18.0104 17.9778 18.0104C19.6384 18.0121 20.9836 19.3588 20.9836 21.0194V25.023" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M20.9836 24.0085V7.01562C20.9836 5.35022 22.3337 4.00014 23.9991 4.00014C25.6645 4.00014 27.0146 5.35022 27.0146 7.01562V24.0085" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M26.9907 23.7159V21.0036C26.9907 19.3467 28.3339 18.0036 29.9907 18.0036C31.6476 18.0036 32.9907 19.3467 32.9907 21.0036V24.0036" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>'
-            
+            like_chup: '<svg viewBox="0 0 48 48" fill="#9e48ff" xmlns="http://www.w3.org/2000/svg"><path d="M14.9718 26.9747C11.6511 27.5664 9.99072 29.5749 9.99072 33.0003C9.99072 38.1384 15.1438 44.0003 19.7905 44.0003C24.4372 44.0003 27.1321 44.0003 31.6802 44.0003C36.2283 44.0003 38.9907 40.1497 38.9907 37.0604C38.9907 32.7101 38.9907 28.3597 38.9907 24.0094C38.9907 22.3526 37.6476 21.0094 35.9907 21.0094H35.9816C34.3298 21.0094 32.9907 22.3485 32.9907 24.0003" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M14.9719 30.0403V21.0132C14.9719 19.3548 16.3163 18.0104 17.9747 18.0104C17.9757 18.0104 17.9767 18.0104 17.9778 18.0104C19.6384 18.0121 20.9836 19.3588 20.9836 21.0194V25.023" stroke="#9e48ff" stroke-width="4" stroke-linecap="round"></path> <path d="M20.9836 24.0085V7.01562C20.9836 5.35022 22.3337 4.00014 23.9991 4.00014C25.6645 4.00014 27.0146 5.35022 27.0146 7.01562V24.0085" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M26.9907 23.7159V21.0036C26.9907 19.3467 28.3339 18.0036 29.9907 18.0036C31.6476 18.0036 32.9907 19.3467 32.9907 21.0036V24.0036" stroke="#9e48ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+            uitimeline1: '<path d="M4 12L20 12M12 4L12 20M6.2 20H17.8C18.9201 20 19.4802 20 19.908 19.782C20.2843 19.5903 20.5903 19.2843 20.782 18.908C21 18.4802 21 17.9201 21 16.8V7.2C21 6.0799 21 5.51984 20.782 5.09202C20.5903 4.71569 20.2843 4.40973 19.908 4.21799C19.4802 4 18.9201 4 17.8 4H6.2C5.0799 4 4.51984 4 4.09202 4.21799C3.71569 4.40973 3.40973 4.71569 3.21799 5.09202C3 5.51984 3 6.07989 3 7.2V16.8C3 17.9201 3 18.4802 3.21799 18.908C3.40973 19.2843 3.71569 19.5903 4.09202 19.782C4.51984 20 5.07989 20 6.2 20Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            uitimeline2: '<path d="M8 6L21 6.00078M8 12L21 12.0008M8 18L21 18.0007M3 6.5H4V5.5H3V6.5ZM3 12.5H4V11.5H3V12.5ZM3 18.5H4V17.5H3V18.5Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>',
+            uifriends: '<svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve" stroke="#fff"><path d="M42,22.3c-2.8-1.1-3.2-2.2-3.2-3.3s0.8-2.2,1.8-3c1.7-1.4,2.6-3.5,2.6-5.8c0-4.4-2.9-8.2-8-8.2 c-4.7,0-7.5,3.2-7.9,7.1c0,0.4,0.2,0.7,0.5,0.9c3.8,2.4,6.1,6.6,6.1,11.7c0,3.8-1.5,7.2-4.2,9.6c-0.2,0.2-0.2,0.6,0,0.8 c0.7,0.5,2.3,1.2,3.3,1.7c0.3,0.1,0.5,0.2,0.8,0.2h12.1c2.3,0,4.1-1.9,4.1-4v-0.6C50,25.9,46.2,24,42,22.3z"></path> <path d="M28.6,36.2c-3.4-1.4-3.9-2.6-3.9-3.9c0-1.3,1-2.6,2.1-3.6c2-1.7,3.1-4.1,3.1-6.9c0-5.2-3.4-9.7-9.6-9.7 c-6.1,0-9.6,4.5-9.6,9.7c0,2.8,1.1,5.2,3.1,6.9c1.1,1,2.1,2.3,2.1,3.6c0,1.3-0.5,2.6-4,3.9c-5,2-9.9,4.3-9.9,8.5V45v1 c0,2.2,1.8,4,4.1,4h27.7c2.3,0,4.2-1.8,4.2-4v-1v-0.4C38,40.5,33.6,38.2,28.6,36.2z"></path></svg>',
+            uisetting: '<path d="M20.1 9.2214C18.29 9.2214 17.55 7.9414 18.45 6.3714C18.97 5.4614 18.66 4.3014 17.75 3.7814L16.02 2.7914C15.23 2.3214 14.21 2.6014 13.74 3.3914L13.63 3.5814C12.73 5.1514 11.25 5.1514 10.34 3.5814L10.23 3.3914C9.78 2.6014 8.76 2.3214 7.97 2.7914L6.24 3.7814C5.33 4.3014 5.02 5.4714 5.54 6.3814C6.45 7.9414 5.71 9.2214 3.9 9.2214C2.86 9.2214 2 10.0714 2 11.1214V12.8814C2 13.9214 2.85 14.7814 3.9 14.7814C5.71 14.7814 6.45 16.0614 5.54 17.6314C5.02 18.5414 5.33 19.7014 6.24 20.2214L7.97 21.2114C8.76 21.6814 9.78 21.4014 10.25 20.6114L10.36 20.4214C11.26 18.8514 12.74 18.8514 13.65 20.4214L13.76 20.6114C14.23 21.4014 15.25 21.6814 16.04 21.2114L17.77 20.2214C18.68 19.7014 18.99 18.5314 18.47 17.6314C17.56 16.0614 18.3 14.7814 20.11 14.7814C21.15 14.7814 22.01 13.9314 22.01 12.8814V11.1214C22 10.0814 21.15 9.2214 20.1 9.2214ZM12 15.2514C10.21 15.2514 8.75 13.7914 8.75 12.0014C8.75 10.2114 10.21 8.7514 12 8.7514C13.79 8.7514 15.25 10.2114 15.25 12.0014C15.25 13.7914 13.79 15.2514 12 15.2514Z" fill="#fff"></path>'
+        }
+
+        function loadsrc(){
+            fetch("https://raw.githubusercontent.com/Kelrit402/ZTR/main/src/profile.html")
+            .then((response) => response.text())
+            .then((text) => {
+                d_profiletemp = text
+            }
+            );
+        }
+
+        function xt(ck){
+            g_cookie = ck
+            getpfsettings()
+            gettimeline()
         }
         
         function login(){
@@ -422,6 +535,7 @@
                     if (!error) {
                         g_cookie = response
                         console.log("login successss")
+                        getpfsettings()
                         gettimeline()
                     }else{
                         alert(error)
@@ -446,6 +560,10 @@
 
             var formattedDate = year + "." + month + "." + day + "-" + hours + ":" + minutes + ":" + seconds;
             return formattedDate;
+        }
+
+        function dectostring(deco){
+            return encodeURIComponent(deco).replace(/%20/g, "+").replace(/,/g, "%2C").replace(/%0A/g, "%5Cn")
         }
 
         function truncateString(str) {
@@ -474,128 +592,6 @@
             return rtml
         }
 
-        function showprofile(contents,uid) {
-            document.getElementById('overlay').style.display = 'flex';
-            var holder = document.getElementById('ovrwrapper')
-            var pname = document.createElement('a')
-            pname.setAttribute('class',"pname")
-            pname.innerText = contents
-            holder.appendChild(pname)
-            holder.appendChild(document.createElement('hr'))
-            var profilelink = document.createElement('button')
-            profilelink.setAttribute('class','menubtn')
-            profilelink.setAttribute('onclick',"window.open('https://story.kakao.com/" +uid+ "')")
-            profilelink.innerText = 'visit profile'
-            holder.appendChild(profilelink)
-            var profilelink = document.createElement('button')
-            profilelink.setAttribute('class','menubtn')
-            profilelink.setAttribute('onclick',"editpanel('" +uid+ "')")
-            profilelink.innerText = 'status edit'
-            holder.appendChild(profilelink)
-        }
-
-        function refreshlabel(){
-            ckbox = document.getElementById('addval')
-            valuestr = document.getElementById('editval')
-            prevlabel = document.getElementById('prevlabel')
-            if (ckbox.checked) {
-                sendingpkt.padd = true
-            }else{
-                sendingpkt.padd = false
-            }
-            sendingpkt.pval = valuestr.value 
-            prevlabel.textContent = sendingpkt.puid + " " + sendingpkt.pkey + " " + sendingpkt.pval + " " + sendingpkt.padd
-        }
-
-        function editpanel(uid){
-            sendingpkt.puid = uid
-
-            var holder = document.getElementById('ovrwrapper')
-            holder.innerHTML = ''
-            var namewrap = document.createElement('label');
-            namewrap.setAttribute('class','pname')
-            namewrap.textContent = uid
-            holder.appendChild(namewrap)
-            holder.appendChild(document.createElement('br'))
-
-            var valuestr = document.createElement('input');
-            valuestr.type = 'text'
-            valuestr.placeholder = 'value to edit'
-            valuestr.id = 'editval'
-            holder.appendChild(valuestr)
-
-            var ckbox = document.createElement('input');
-            ckbox.type = 'checkbox';
-            ckbox.id = 'addval';
-            holder.appendChild(ckbox)
-
-            var strs = document.createElement('label');
-            strs.htmlFor = 'addval';
-            strs.textContent = 'add';
-            holder.appendChild(strs)
-
-            holder.appendChild(document.createElement('hr'))
-
-            var btn1 = document.createElement('button')
-            btn1.setAttribute('class','menubtn')
-            btn1.setAttribute('onclick',"sendingpkt.pkey='point';refreshlabel()")
-            btn1.innerText = 'point'
-
-            var btn2 = document.createElement('button')
-            btn2.setAttribute('class','menubtn')
-            btn2.setAttribute('onclick',"sendingpkt.pkey='warn';refreshlabel()")
-            btn2.innerText = 'warning'
-
-            var btn3 = document.createElement('button')
-            btn3.setAttribute('class','menubtn')
-            btn3.setAttribute('onclick',"sendingpkt.pkey='vip';refreshlabel()")
-            btn3.innerText = 'vip'
-
-            var btn4 = document.createElement('button')
-            btn4.setAttribute('class','menubtn')
-            btn4.setAttribute('onclick',"sendingpkt.pkey='bethac';refreshlabel()")
-            btn4.innerText = 'bethac'
-
-            var btn5 = document.createElement('button')
-            btn5.setAttribute('class','menubtn')
-            btn5.setAttribute('onclick',"sendingpkt.pkey='rekhac';refreshlabel()")
-            btn5.innerText = 'rekhac'
-
-            var prevlabel = document.createElement('label');
-            prevlabel.setAttribute('class',"pcontent")
-            prevlabel.setAttribute('id',"prevlabel")
-            prevlabel.textContent = ""
-
-            var btn6 = document.createElement('button')
-            btn6.setAttribute('class','menubtn')
-            btn6.setAttribute('onclick',"useredit()")
-            btn6.innerText = 'send edit data'
-
-            var btn7 = document.createElement('button')
-            btn7.setAttribute('class','menubtn')
-            btn7.setAttribute('onclick',"remfriend('"+uid+"')")
-            btn7.innerText = 'remove friend'
-
-            var btn8 = document.createElement('button')
-            btn8.setAttribute('class','menubtn')
-            btn8.setAttribute('onclick',"remdata('"+uid+"')")
-            btn8.innerText = 'remove data'
-            
-            holder.appendChild(btn1)
-            holder.appendChild(btn2)
-            holder.appendChild(document.createElement('br'))
-            holder.appendChild(btn3)
-            holder.appendChild(btn4)
-            holder.appendChild(btn5)
-            holder.appendChild(document.createElement('br'))
-            holder.appendChild(prevlabel)
-            holder.appendChild(document.createElement('br'))
-            holder.appendChild(btn6)
-            holder.appendChild(document.createElement('hr'))
-            holder.appendChild(btn7)
-            holder.appendChild(btn8)
-        }
-
         function largeview(fdata,idnum,ignore = false){
             var master = document.createElement('div')
             master.setAttribute('class',"masterholder")
@@ -616,10 +612,12 @@
 
             var pimg = document.createElement('img')
             pimg.setAttribute('src',fdata.actor.profile_image_url)
+            pimg.setAttribute('onclick','showprofileovr("'+fdata.actor.id+'")')
             pholder.childNodes[0].appendChild(pimg)
 
             var pname = document.createElement('a')
             pname.setAttribute('class',"pname")
+            pname.setAttribute('onclick','showprofileovr("'+fdata.actor.id+'")')
             pname.textContent = fdata.actor.display_name
             pholder.childNodes[1].appendChild(pname)
 
@@ -670,7 +668,6 @@
                 }
             }
             if (fdata.media_type == "scrap") {
-                console.log(fdata.media_type)
                 mdhldr.setAttribute('onclick',"window.open('" +fdata.scrap.requested_url+ "')")
                 mdhldr.innerHTML = '<pre class="urlstr">'+fdata.scrap.title+'\n'+fdata.scrap.site_name+'</pre>'
                 if (fdata.scrap.image != undefined){
@@ -695,14 +692,13 @@
             rholder.children[1].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;" >'+d_paths.iccomment+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.comment_count+'</span>'
             rholder.children[2].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">'+d_paths.icshare+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.share_count+'</span>'
             rholder.children[3].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-right: 4%;transform: rotate(180deg);" viewBox="0 0 24 24" onclick="emotemenu('rd`+idnum+`',false)">`+d_paths.iclike+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#ff4848" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#48ff62" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#f9ff48" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#486fff" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#9e48ff" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
             
             if (fdata.liked){
-                console.log("rd"+idnum)
                 setTimeout(() => {
                     marklike(fdata.sid,fdata.liked_emotion,"rd"+idnum)
                 }, 50);
@@ -712,10 +708,11 @@
 
         function showtimeline(feeddata,append = false) {
             if (document.querySelector("body > div.finwrapper > div.container > div.contents") == undefined) {
-                document.querySelector("body > div.finwrapper > div.container").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
+                document.querySelector("body > div.finwrapper").innerHTML = '<div class="container"><div class="contents" style="height: 100%; width: 100%;"></div></div>'
             }
             var mainctn = document.querySelector("body > div.finwrapper > div.container > div.contents")
             if (!append) {
+                document.querySelector("body > div.finwrapper").scrollTop = 0
                 mainctn.innerHTML = ''
             }
             var startnum = 0
@@ -752,11 +749,12 @@
 
             var pimg = document.createElement('img')
             pimg.setAttribute('src',fdata.actor.profile_image_url)
+            pimg.setAttribute('onclick','showprofileovr("'+fdata.actor.id+'")')
             pholder.childNodes[0].appendChild(pimg)
 
             var pname = document.createElement('a')
             pname.setAttribute('class',"pname")
-            pname.setAttribute('onclick',"getprofile('"+fdata.actor.id+"')")
+            pname.setAttribute('onclick','showprofileovr("'+fdata.actor.id+'")')
             pname.textContent = fdata.actor.display_name
             pholder.childNodes[1].appendChild(pname)
 
@@ -818,22 +816,22 @@
             rholder.setAttribute('class',"reactholder")
             master.appendChild(rholder)
             rholder.innerHTML = `<span class="dd" id style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;" liked="0" onclick="emotemenu('rd`+idnum+`',true)"></span>
-                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"onclick="getcontents('`+fdata.sid+`')"></span>
+                <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
                 <span class="dd" style="width: 10%;margin: 2px;margin-bottom: 1%;display: flex;align-items: center;"></span>
                 <span class="dd" style="width: 50%;margin: 2px;margin-bottom: 1%;display: none;align-items: center;"></span>`
             rholder.children[0].innerHTML = '<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;" viewBox="0 0 24 24">'+d_paths.iclike+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.like_count+'</span>'
             rholder.children[1].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;" >'+d_paths.iccomment+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.comment_count+'</span>'
             rholder.children[2].innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;">'+d_paths.icshare+'</svg><span class="pcontent" style="width: 30px;min-width: 30px;margin: auto;">'+fdata.share_count+'</span>'
             rholder.children[3].innerHTML = `<svg fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-right: 4%;transform: rotate(180deg);" viewBox="0 0 24 24" onclick="emotemenu('rd`+idnum+`',false)">`+d_paths.iclike+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
-            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#ff4848" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','like','rd"+idnum+`')">`+d_paths.like_like+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#48ff62" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','good','rd"+idnum+`')">`+d_paths.like_good+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#f9ff48" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','pleasure','rd"+idnum+`')">`+d_paths.like_prs+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#486fff" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','sad','rd"+idnum+`')">`+d_paths.like_sad+'</svg>'
+            rholder.children[3].innerHTML += `<svg viewBox="0 0 24 24" fill="#9e48ff" xmlns="http://www.w3.org/2000/svg" style="width: 30px;vertical-align: middle;margin-left: 4%;margin-right: 4%;" onclick="postlike('`+fdata.sid+"','cheerup','rd"+idnum+`')">`+d_paths.like_chup+'</svg>'
             
             if (fdata.liked){
                 setTimeout(() => {
-                    marklike(fdata.sid,fdata.liked_emotion,"rd"+idnum,addcount)
+                    marklike(fdata.sid,fdata.liked_emotion,"rd"+idnum)
                 }, 50);
             }
             return master
@@ -847,26 +845,34 @@
             var overray = document.querySelector("body > div.scroverray")
             overray.innerHTML += '<div class="hugewrapper"></div>'
             var hugewrap = overray.childNodes[overray.childNodes.length-1]
+            var befwrap = overray.childNodes[overray.childNodes.length-2]
+            if (befwrap != undefined || befwrap != null){
+                befwrap.style.overflow = "hidden"
+            }
             
             document.querySelector("body > div.lowbar > div.lowbar_comment").style.display = "flex"
             document.querySelector("body > div.lowbar > div.lowbar_main").style.display = "none"
             hugewrap.appendChild(hugeview(cdata))
             if (cdata.like_count != 0 & cdata.likes != undefined) {
-                console.log(cdata.like_count)
                 appendemote(cdata.likes,hugewrap)
             }
-            getcomment(cdata.sid,30,'desc',hugewrap)
+            document.querySelector("#sendcmt").setAttribute('target',cdata.sid)
+            getcomment(cdata.sid,30,'asc',hugewrap)
         }
 
-        function closecontent(){
+        function closecontent(offset=0){
             var overray = document.querySelector("body > div.scroverray")
-            overray.childNodes[overray.childNodes.length-1].remove()
+            overray.childNodes[overray.childNodes.length-1-offset].remove()
             if (document.querySelector("body > div.scroverray").childNodes.length == 0) {
                 g_stopautoload = false
                 document.querySelector("body > div.scroverray").style.display = "none"
                 document.querySelector("body > div.finwrapper").style.overflow = "auto"
                 document.querySelector("body > div.lowbar > div.lowbar_comment").style.display = "none"
                 document.querySelector("body > div.lowbar > div.lowbar_main").style.display = "flex"
+                document.querySelector("#sendcmt").setAttribute('target',"")
+            }else{
+                document.querySelector("#sendcmt").setAttribute('target',overray.childNodes[overray.childNodes.length-1].getAttribute("sid"))
+                overray.childNodes[overray.childNodes.length-1].style = 'auto'
             }
         }
 
@@ -931,22 +937,32 @@
         function shownotific(notdata, append = false) {
             console.log(notdata)
             if (document.querySelector("body > div.finwrapper > div.container > div.contents") == undefined) {
-                document.querySelector("body > div.finwrapper > div.container").innerHTML = '<div class="contents" style="height: 100%; width: 100%;"></div>'
+                document.querySelector("body > div.finwrapper").innerHTML = '<div class="container"><div class="contents" style="height: 100%; width: 100%;"></div></div>'
             }
             var mainctn = document.querySelector("body > div.finwrapper > div.container > div.contents")
             if (!append) {
+                document.querySelector("body > div.finwrapper").scrollTop = 0
                 mainctn.innerHTML = ''
             }
             for (var i = 0; i < notdata.length; i++){
                 var sid = ''
+                var uid = ''
+                var master = document.createElement('div')
+                var herftest = ''
+                master.setAttribute('class',"masterholder")
+                mainctn.appendChild(master)
                 if(notdata[i].scheme.indexOf("activities/") != -1) {
                     sid = notdata[i].scheme.split("activities/")[1].split("?")[0]
+                    //master.setAttribute('onclick', 'getcontents("'+sid+'")')
+                    herftest = 'getcontents("'+sid+'")'
+                    uid = notdata[i].actor.id
                 }
-                var master = document.createElement('div')
-                master.setAttribute('class',"masterholder")
+                if(notdata[i].scheme.indexOf("profiles/") != -1) {
+                    sid = notdata[i].scheme.split("profiles/")[1]
+                    uid = notdata[i].actor.id
+                    herftest = 'showprofileovr("'+uid+'")'
+                }
                 master.setAttribute('sid',sid)
-                master.setAttribute('onclick', 'getcontents("'+sid+'")')
-                mainctn.appendChild(master)
 
                 var holder = document.createElement('div')
                 holder.setAttribute('id',"fd"+i)
@@ -958,9 +974,11 @@
                 holder.appendChild(pholder)
                 pholder.style = "margin-left: 10px;display: flex;flex-direction: row;align-items: flex-start;"
                 pholder.innerHTML = '<div class="pimage" style="margin-bottom: 2%;"></div><div style="width: 100%;margin: 2%;"></div>'
+                pholder.childNodes[1].setAttribute('onclick',herftest)
 
                 var pimg = document.createElement('img')
                 pimg.setAttribute('src',notdata[i].actor.profile_image_url)
+                pimg.setAttribute('onclick','showprofileovr("'+uid+'")')
                 pholder.childNodes[0].appendChild(pimg)
 
                 var pname = document.createElement('a')
@@ -991,55 +1009,68 @@
                     mdhldr.setAttribute('pg',0)
                     mdhldr.style = 'max-width: 20%;max-height: 10%;'
                     pholder.appendChild(mdhldr)
+                    mdhldr.setAttribute('onclick',herftest)
                     mdhldr.innerHTML = mdhldr.innerHTML + '<img src="'+notdata[i].thumbnail_url+'" style="display: block;max-width: 100%;">'
                 }
             }
         }
 
-        function showfriends(frddata) {
-            document.querySelector("#contentsbox").innerHTML = ''
-            for (var i = 0; i < frddata.length; i++){
-                var master = document.createElement('div')
-                master.setAttribute('class',"masterholder")
-                document.querySelector("#contentsbox").appendChild(master)
-
-                var holder = document.createElement('div')
-                holder.setAttribute('id',"fd"+i)
-                holder.setAttribute('class',"contentholder")
-                master.appendChild(holder)
-
-                var pimg = document.createElement('img')
-                pimg.setAttribute('class',"pimage")
-                pimg.setAttribute('src',frddata[i].profile_image_url)
-                holder.appendChild(pimg)
-
-                var pholder = document.createElement('div')
-                pholder.setAttribute('class',"profileholder")
-                holder.appendChild(pholder)
-                pholder.style.marginLeft = "10px"
-                pholder.style.display = "inline-block"
-
-                var pname = document.createElement('a')
-                pname.setAttribute('class',"pname")
-                pname.textContent = frddata[i].display_name
-                pname.setAttribute('onclick',"getprofile('"+frddata[i].id+"')")
-                pholder.appendChild(pname)
-                pholder.appendChild(document.createElement('br'))
-
-                var pid = document.createElement('pre')
-                pid.setAttribute('class',"pid")
-                pid.textContent = frddata[i].id
-                pholder.appendChild(pid)
-
-                var pcnt = document.createElement('pre')
-                pcnt.setAttribute('class',"pcontent")
-                try {
-                    pcnt.textContent = frddata[i].status_objects[0].message
-                } catch (error) {
+        function showprofile(pdata, element){
+            element.innerHTML += d_profiletemp
+            element.querySelector("#pf_nickname").innerText = pdata.profile.display_name
+            msgs = ''
+            for (var u = 0; u < pdata.profile.status_objects.length; u++){
+                if (pdata.profile.status_objects[u].object_type == 'text'){
+                    msgs += pdata.profile.status_objects[u].message
                 }
-                pholder.appendChild(pcnt)
+            }
 
-                master.appendChild(document.createElement('hr'))
+            if (pdata.mutual_friend == null) {
+                element.querySelector("#pf_mutual").innerText = ""
+            }else{
+                element.querySelector("#pf_mutual").innerText = pdata.mutual_friend.message
+            }
+            if(pdata.profile.relation.friend == "F") {
+                element.querySelector("#btn_invite").innerText = '√내 친구'
+            }
+            element.querySelector("#pf_intd").innerText = msgs
+            element.querySelector("#pf_pimage").src = pdata.profile.profile_image_url
+            element.querySelector("#pf_backimg").src = pdata.profile.bg_image_url
+            var actvhld = element.querySelector("#pf_holder > div.pcholder")
+            getactivity(pdata.profile.id,actvhld)
+        }
+
+        function showprofileovr(uid) {
+            g_stopautoload = true
+            document.querySelector("body > div.scroverray").style.display = "flex"
+            document.querySelector("body > div.finwrapper").style.overflow = "hidden"
+
+            var overray = document.querySelector("body > div.scroverray")
+            overray.innerHTML += '<div class="hugewrapper"></div>'
+            var hugewrap = overray.childNodes[overray.childNodes.length-1]
+            var befwrap = overray.childNodes[overray.childNodes.length-2]
+            if (befwrap != undefined || befwrap != null){
+                befwrap.style.overflow = "hidden"
+            }
+            
+            document.querySelector("body > div.lowbar > div.lowbar_comment").style.display = "flex"
+            document.querySelector("body > div.lowbar > div.lowbar_main").style.display = "none"
+            hugewrap.innerHTML = '<div class="masterholder"></div>'
+            getprofile(uid,hugewrap.children[0])
+        }
+
+        function appendact(fdata,element,append=false){
+            var startnum = 0
+            if (append){
+                startnum = element.children.length
+            }
+            for (var i = 0; i < fdata.length; i++){
+                if (fdata[i].verb !== "post" && fdata[i].verb !== "share") {
+                    continue;
+                }
+                ctn = largeview(fdata[i],i+startnum)
+                ctn.style = "width: 95%;"
+                element.appendChild(ctn)
             }
         }
 
@@ -1055,54 +1086,6 @@
                 rg.children[1].style.display = 'flex'
                 rg.children[2].style.display = 'flex'
                 rg.children[3].style.display = 'none'
-            }
-        }
-
-        function showds(dsdata) {
-            document.querySelector("#contentsbox").innerHTML = ''
-            for (var i = 0; i < dsdata.length; i++){
-                var master = document.createElement('div')
-                master.setAttribute('class',"masterholder")
-                document.querySelector("#contentsbox").appendChild(master)
-
-                var holder = document.createElement('div')
-                holder.setAttribute('id',"fd"+i)
-                holder.setAttribute('class',"contentholder")
-                master.appendChild(holder)
-
-                var pname = document.createElement('label')
-                pname.setAttribute('class',"pname")
-                pname.setAttribute('onclick',"getprofile('"+dsdata[i][1]+"')")
-                pname.textContent = "["+i+"] "+dsdata[i][1]
-                holder.appendChild(pname)
-                holder.appendChild(document.createElement('br'))
-
-                var pcnt = document.createElement('pre')
-                pcnt.setAttribute('class',"pcontent")
-                pcnt.textContent = dsdata[i][0]
-                holder.appendChild(pcnt)
-
-                master.appendChild(document.createElement('hr'))
-            }
-        }
-
-        function showstatus(stats) {
-            document.querySelector("#contentsbox").innerHTML = ''
-            var varr = Object.keys(stats)
-            for (var i = 0; i < varr.length; i++){
-                var holder = document.createElement('div')
-                holder.setAttribute('class',"contentholder")
-                document.querySelector("#contentsbox").appendChild(holder)
-                var nkey = document.createElement('a')
-                nkey.setAttribute("class","pname")
-                nkey.textContent = varr[i] + ' : '
-
-                var nval = document.createElement('a')
-                nval.setAttribute("class","pname")
-                nval.textContent = stats[varr[i]]
-
-                holder.appendChild(nkey)
-                holder.appendChild(nval)
             }
         }
 
@@ -1154,85 +1137,6 @@
             };
         }
 
-        function prestart() {
-            if (confirm("restart bot?")) {
-                sendreq('p.restart', function (error, response) {
-                    if (!error) {
-                        alert(response);
-                    }else{
-                        alert(error)
-                    }
-                });
-            }
-        }
-
-        function filterfrd() {
-            if (confirm("filter friends?")) {
-                sendreq('remfriends', function (error, response) {
-                    if (!error) {
-
-                    }else{
-                        alert(error)
-                    }
-                });
-            }
-        }
-
-        function useredit() {
-            if (confirm("edit user?")) {
-                vstr = JSON.stringify(sendingpkt)
-                sendreq('set#'+vstr, function (error, response) {
-                    if (!error) {
-                        alert(response);
-                    }else{
-                        alert(error)
-                    }
-                });
-            }
-        }
-
-        function remfriend(uid) {
-            if (confirm("remove friend?")) {
-                sendreq('unfrd#'+uid, function (error, response) {
-                    if (!error) {
-                        alert(response);
-                    }else{
-                        alert(error)
-                    }
-                });
-            }
-        }
-
-        function remdata(uid) {
-            if (confirm("remove user data?")) {
-                sendreq('remdata#'+uid, function (error, response) {
-                    if (!error) {
-                        alert(response);
-                    }else{
-                        alert(error)
-                    }
-                });
-            }
-        }
-
-        function getprofile(uid) {
-            sendreq('usr#'+uid, function (error, response) {
-                if (!error) {
-                    showprofile(response,uid)
-                }
-            });
-            
-        }
-
-        function getfriends() {
-            sendreq('friends', function (error, responseText) {
-                if (!error) {
-                    recdata = JSON.parse(responseText);
-                    showfriends(recdata)
-                }
-            });
-        }
-
         function appendemote(likes,hobj){
             var pholder = document.createElement('div')
             pholder.setAttribute('class',"emoteholder")
@@ -1269,6 +1173,20 @@
             return pholder
         }
 
+        function getpfsettings(){
+            sendreq('https://story.kakao.com/a/settings/profile?_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        g_mstat = JSON.parse(recdata[1])
+                        document.querySelector("body > div.lowbar > div.lowbar_main > div:nth-child(4)").setAttribute('onclick','getprofile("'+g_mstat.id+'")')
+                    }
+                }
+            });
+        }
+
         function getcomment(sid,lpp,order,hobj) {
             sendreq('https://story.kakao.com/a/activities/'+sid+'/comments?lpp='+lpp+'&order='+order+'&_='+gentime(),"get","",g_cookie, function (error, response) {
                 if (!error) {
@@ -1282,7 +1200,7 @@
             });
         }
 
-        function getcontents(sid) {
+        function getcontents(sid,removepre=false) {
             sendreq('https://story.kakao.com/a/activities/'+sid+'?from=home&_='+gentime(),"get","",g_cookie, function (error, response) {
                 if (!error) {
                     recdata = JSON.parse(response);
@@ -1290,13 +1208,26 @@
                         alert("ERROR! "+recdata[0]);
                     }else{
                         showcontent(JSON.parse(recdata[1]))
+                        if(removepre){closecontent(1)}
+                    }
+                }
+            });
+        }
+
+        function getactivity(uid,element,since=''){
+            sendreq('https://story.kakao.com/a/profiles/'+uid+'/activities?ag=false&since='+since+'&_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        appendact(JSON.parse(recdata[1]),element)
                     }
                 }
             });
         }
 
         function gettimeline() {
-            document.querySelector("body > div.finwrapper").scrollTop = 0
             if (document.querySelector("body > div.finwrapper > div.loginbox") != undefined) {
                 document.querySelector("body > div.finwrapper > div.loginbox").remove()
             }
@@ -1328,7 +1259,6 @@
         }
         
         function getnotific() {
-            document.querySelector("body > div.finwrapper").scrollTop = 0
             g_stopautoload = true
             sendreq('https://story.kakao.com/a/notifications?_='+gentime(),"get","",g_cookie, function (error, responseText) {
                 if (!error) {
@@ -1338,6 +1268,23 @@
             });
         }
 
+        function getprofile(uid,element=null){
+            sendreq('https://story.kakao.com/a/profiles/'+uid+'?logging=true&with=highlight&_='+gentime(),"get","",g_cookie, function (error, response) {
+                if (!error) {
+                    recdata = JSON.parse(response);
+                    if (recdata[0] != 200) {
+                        alert("ERROR! "+recdata[0]);
+                    }else{
+                        if (element==null){
+                            document.querySelector("body > div.finwrapper").innerHTML = '<div></div>'
+                            showprofile(JSON.parse(recdata[1]),document.querySelector("body > div.finwrapper").children[0])
+                        }else{
+                            showprofile(JSON.parse(recdata[1]),element)
+                        }
+                    }
+                }
+            });
+        }
 
         function postlike(sid,emotion,element) {
             emotemenu(element,false)
@@ -1386,34 +1333,26 @@
             return false
         }
 
-        function getstatus() {
-            sendreq('status', function (error, response) {
+        function postcomment() {
+            var tid = document.querySelector("#sendcmt").getAttribute('target')
+            var stdata = document.querySelector("#cmtinput").value
+            var outputset = [
+                {type: "text", text: stdata}
+            ]
+            var outputstr = "text="+dectostring(stdata)+"&decorators="+dectostring(JSON.stringify(outputset))
+            console.log(outputstr)
+            if (tid == null || tid == ""){ return }
+            sendreq('https://story.kakao.com/a/activities/'+tid+'/comments?_='+gentime(),"post",outputstr,g_cookie, function (error, response) {
                 if (!error) {
                     recdata = JSON.parse(response);
-                    showstatus(JSON.parse(recdata[1]))
+                    if (recdata[0] != 200) {
+                        console.log(recdata[0])
+                    }else{
+                        getcontents(tid,true)
+                    }
                 }
             });
-        }
-
-        function getds() {
-            sendreq('dsmsgs', function (error, response) {
-                if (!error) {
-                    recdata = JSON.parse(response);
-                    showds(recdata)
-                }
-            });
-        }
-
-        function getranks() {
-            sendreq('ranks', function (error, response) {
-                if (!error) {
-                    document.querySelector("#contentsbox").innerHTML = ''
-                    var pcnt = document.createElement('pre')
-                    pcnt.setAttribute('class',"pcontent")
-                    pcnt.textContent = response
-                    document.querySelector("#contentsbox").appendChild(pcnt)
-                }
-            });
+            return false
         }
 
         function handleScroll() {
@@ -1428,6 +1367,8 @@
                 moretimeline(xa[xa.length-1].getAttribute('sid'))
             }
         }
+
+        loadsrc()
     </script>
 </body>
 </html>
